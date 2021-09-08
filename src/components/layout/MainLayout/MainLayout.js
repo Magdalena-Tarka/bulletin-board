@@ -8,12 +8,19 @@ import clsx from 'clsx';
 
 import styles from './MainLayout.module.scss';
 
-const Component = ({ className, children }) => (
-  <div className={clsx(className, styles.root)}>
-    <h2>MainLayout</h2>
-    {children}
-  </div>
-);
+import { Header } from '../Header/Header';
+import { Footer } from '../Footer/Footer';
+
+const Component = ({ className, children }) => {
+
+  return (
+    <div className={clsx(className, styles.root)}>
+      <Header />
+      {children}
+      <Footer />
+    </div>
+  );
+};
 
 Component.propTypes = {
   children: PropTypes.node,

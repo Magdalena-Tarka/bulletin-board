@@ -1,0 +1,18 @@
+@import '../../../styles/settings.scss';
+
+$footer-text-color: white;
+$footer-bg-color: #18141b;
+$footer-pd: 12px;
+
+.root {
+  //background: $footer-bg-color;
+  padding: $footer-pd;
+
+  svg {
+    //color: $footer-text-color;
+
+    path {
+      fill: url(#gradient);
+    }
+  }
+}

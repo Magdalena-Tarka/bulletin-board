@@ -1,3 +1,92 @@
 @import '../../../styles/settings.scss';
 
-//.root {}
+$gradient-btn-orange: linear-gradient(30deg, #EA6362, #FFDEA7);
+$gradient-btn-blue: linear-gradient(30deg, #4b82c5, #00CDAC);
+$gradient-btn-pink: linear-gradient(30deg, #623aa2, #f97794);
+
+$header-text-color: white;
+$header-bg-color: #18141b;
+$header-btn-border-color: black;
+$header-btn-border-radius: 100px;
+$header-btn-font-size: 12px;
+$header-btn-font-weight: 550;
+$header-btn-pd: 3px 12px;
+$header-logo-font: 'Roboto', sans-serif;
+
+.root {
+  flex-grow: 1;
+
+  * {
+    background: transparent;
+    box-shadow: none;
+    //color: $header-text-color;
+  }
+
+  .top_buttons {
+    padding: 12px 0;
+    //background: $header-bg-color;
+
+    button {
+      border-radius: $header-btn-border-radius;
+      font-size: $header-btn-font-size;
+      font-weight: $header-btn-font-weight;
+      padding: $header-btn-pd;
+      text-transform: capitalize;
+      margin: 0 4px;
+      border: 3px solid $header-btn-border-color;
+    }
+
+    .btn_LoggedIn span {
+      background: $gradient-btn-blue;
+      background-clip: text;
+      color: transparent;
+    }
+    .btn_LoggedOut span {
+      background: $gradient-btn-orange;
+      background-clip: text;
+      color: transparent;
+    }
+    .btn_Admin span {
+      background: $gradient-btn-pink;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  .navbar {
+    display: flex;
+
+    svg {
+      path {
+        fill: url(#gradient);
+      }
+    }
+
+    .logo {
+      flex-grow: 1;
+      font-weight: $header-btn-font-weight;
+      text-transform: uppercase;
+      font-family: $header-logo-font;
+    }
+
+    .right_buttons {
+
+      * {
+        border-radius: $header-btn-border-radius;
+        font-size: $header-btn-font-size;
+        font-weight: $header-btn-font-weight;
+        padding: $header-btn-pd;
+        text-transform: capitalize;
+      }
+
+      .btn_yourPosts {
+        background-image: $gradient-btn-blue;
+      }
+
+      .btn_login {
+        margin-left: 10px;
+        background-image: $gradient-btn-orange;
+      }
+    }
+  }
+}
