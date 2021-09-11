@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 
-//import { connect } from 'react-redux';
-//import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux';
+import { connect } from 'react-redux';
+import { getUserStatus, setUserStatus } from '../../../redux/userRedux';
 
 import styles from './Header.module.scss';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -26,7 +25,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Component = ({ className, children }) => {
+const Component = ({ className, userStatus, setUserStatus }) => {
   const classes = useStyles();
 
   return (
@@ -38,28 +37,49 @@ const Component = ({ className, children }) => {
         alignItems="center"
         className={styles.top_buttons}
       >
-        <Button className={styles.btn_LoggedIn}>Logged In</Button>
-        <Button className={styles.btn_LoggedOut}>Logged Out</Button>
-        <Button className={styles.btn_Admin}>Admin</Button>
+        <Button
+          className={styles.btn_LoggedIn}
+          value="is loggedIn"
+          onClick={() => setUserStatus('is loggedIn')}
+        >
+          Logged In
+        </Button>
+        <Button
+          className={styles.btn_LoggedOut}
+          value="is loggedOut"
+          onClick={() => setUserStatus('is loggedOut')}
+        >
+          Logged Out
+        </Button>
+        <Button
+          className={styles.btn_Admin}
+          value="is admin"
+          onClick={() => setUserStatus('is admin')}
+        >
+          Admin
+        </Button>
       </Grid>
-      <Container maxWidth="md">
-        <AppBar position="static">
-          <Toolbar className={styles.navbar}>
-            <IconButton className={styles.homeIcon}>
-              <GestureIcon />
-            </IconButton>
 
-            <Typography variant="h6" className={styles.logo}>
+      <AppBar position="static">
+        <Toolbar className={styles.navbar}>
+          <IconButton className={styles.logo_icon}>
+            <GestureIcon />
+          </IconButton>
+
+          <Typography variant="h6" className={styles.logo}>
               Bulletin Board
-            </Typography>
+          </Typography>
 
-            <div className={styles.right_buttons}>
+          <div className={styles.right_buttons}>
+            {userStatus === 'is loggedOut' ? '' :
               <Button className={styles.btn_yourPosts} color="inherit">Your Posts</Button>
-              <Button className={styles.btn_login} color="inherit">Log In</Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </Container>
+            }
+            <Button className={styles.btn_login} color="inherit">
+              {userStatus === 'is loggedOut' ? 'Log In' : 'Log Out'}
+            </Button>
+          </div>
+        </Toolbar>
+      </AppBar>
 
       <svg className={classes.icon} aria-hidden="true" focusable="false">
         <linearGradient id="gradient" x2="2" y2="1">
@@ -73,24 +93,24 @@ const Component = ({ className, children }) => {
 };
 
 Component.propTypes = {
-  children: PropTypes.node,
   className: PropTypes.string,
+  userStatus: PropTypes.string,
+  setUserStatus: PropTypes.func,
 };
 
 
-/*const mapStateToProps = state => ({
-  someProp: reduxSelector(state),
+const mapStateToProps = state => ({
+  userStatus: getUserStatus(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  someAction: arg => dispatch(reduxActionCreator(arg)),
+  setUserStatus: userStatus => dispatch(setUserStatus(userStatus)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-*/
 
 export {
-  Component as Header,
-  //Container as Header,
+  //Component as Header,
+  Container as Header,
   Component as HeaderComponent,  // w testach będziemy używać HeaderComponent
 };

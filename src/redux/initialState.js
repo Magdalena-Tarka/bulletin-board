@@ -59,4 +59,8 @@ export const initialState = {
       error: false,
     },
   },
+  user: {
+    userStatus: 'is loggedOut',
+    userEmail: {},
+  },
 };

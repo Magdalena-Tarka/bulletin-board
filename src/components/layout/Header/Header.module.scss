@@ -53,8 +53,12 @@ $header-logo-font: 'Roboto', sans-serif;
 
   .navbar {
     display: flex;
+    padding: 0;
 
-    svg {
+    .logo_icon {
+      padding: 0;
+      margin: 0 18px 0 4px;
+
       path {
         fill: url(#gradient);
       }
@@ -80,12 +84,13 @@ $header-logo-font: 'Roboto', sans-serif;
       .btn_yourPosts {
         background-image: $gradient-btn-turq;
         box-shadow: $btn-shadow-filled;
+        margin: 0 4px;
       }
 
       .btn_login {
-        margin-left: 10px;
         background-image: $gradient-btn-orange;
         box-shadow: $btn-shadow-filled;
+        margin: 0 4px;
       }
     }
   }

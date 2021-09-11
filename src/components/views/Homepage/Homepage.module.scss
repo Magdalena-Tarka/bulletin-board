@@ -14,83 +14,45 @@ $posts-card-img-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
 .root {
   min-height: 400px;
   color: $posts-text-color;
+  justify-content: center;
 
-  .wrapper {
-    justify-content: center;
+  .posts_wrapper {
+    padding: 24px 0;
 
-    .posts_wrapper {
-      padding: 24px 0;
+    .posts_buttons_top {
+       width: 100%;
+      display: flex;
 
-      .posts_buttons_top {
-        width: 100%;
-        display: flex;
+      button {
+        border-radius: $posts-btn-border-radius;
+        font-size: $posts-btn-font-size;
+        font-weight: $posts-btn-font-weight;
+        padding: 3px 12px;
+        text-transform: capitalize;
+        margin: 0 4px;
+        border: 1px solid $posts-btn-border-color;
+      }
 
-        button {
-          border-radius: $posts-btn-border-radius;
-          font-size: $posts-btn-font-size;
-          font-weight: $posts-btn-font-weight;
-          padding: 3px 12px;
-          text-transform: capitalize;
-          margin: 0 4px;
-          border: 1px solid $posts-btn-border-color;
+      .posts_buttons_top_left {
+        .btn_allPosts {
+          background: $gradient-btn-orange;
+          background-clip: text;
+          color: transparent;
+          box-shadow: $btn-shadow-transparent;
         }
 
-        .posts_buttons_top_left {
-          .btn_allPosts {
-            background: $gradient-btn-orange;
-            background-clip: text;
-            color: transparent;
-            box-shadow: $btn-shadow-transparent;
-          }
-
-          .btn_yourPosts {
-            background: $gradient-btn-turq;
-            background-clip: text;
-            color: transparent;
-            box-shadow: $btn-shadow-transparent;
-            box-shadow: $btn-shadow-transparent;
-          }
-        }
-
-        .posts_buttons_top_right {
-          margin-left: auto;
-
-          .btn_addPost {
-            border-radius: $posts-btn-border-radius;
-            font-size: $posts-btn-font-size;
-            font-weight: $posts-btn-font-weight;
-            padding: $posts-btn-pd;
-            text-transform: capitalize;
-            background-image: $gradient-btn-blue;
-            border: none;
-            box-shadow: $btn-shadow-filled;
-          }
+        .btn_yourPosts {
+          background: $gradient-btn-turq;
+          background-clip: text;
+          color: transparent;
+          box-shadow: $btn-shadow-transparent;
+          box-shadow: $btn-shadow-transparent;
         }
       }
 
-      .posts {
-        margin: 24px auto;
+      .posts_buttons_top_right {
+        margin-left: auto;
 
-        .post {
-          margin: 4px;
-          border-radius: 20px;
-          color: $posts-card-font-color;
-          background: $posts-card-bg-color;
-
-          .post_image {
-            height: 200px;
-            border-radius: 20px;
-            margin-bottom: 16px;
-            box-shadow: $posts-card-img-shadow;
-          }
-
-          .post_title {
-            font-weight: 550;
-          }
-        }
-      }
-
-      .posts_buttons_bottom {
         .btn_addPost {
           border-radius: $posts-btn-border-radius;
           font-size: $posts-btn-font-size;
@@ -101,6 +63,41 @@ $posts-card-img-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
           border: none;
           box-shadow: $btn-shadow-filled;
         }
+      }
+    }
+
+    .posts {
+      margin: 24px auto;
+
+      .post {
+        margin: 4px;
+        border-radius: 20px;
+        color: $posts-card-font-color;
+        background: $posts-card-bg-color;
+
+        .post_image {
+          height: 200px;
+          border-radius: 20px;
+          margin-bottom: 16px;
+          box-shadow: $posts-card-img-shadow;
+        }
+
+        .post_title {
+          font-weight: 550;
+        }
+      }
+    }
+
+    .posts_buttons_bottom {
+      .btn_addPost {
+        border-radius: $posts-btn-border-radius;
+        font-size: $posts-btn-font-size;
+        font-weight: $posts-btn-font-weight;
+        padding: $posts-btn-pd;
+        text-transform: capitalize;
+        background-image: $gradient-btn-blue;
+        border: none;
+        box-shadow: $btn-shadow-filled;
       }
     }
   }
