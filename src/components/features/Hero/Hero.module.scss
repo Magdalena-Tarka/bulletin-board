@@ -1,0 +1,46 @@
+@import '../../../styles/settings.scss';
+
+$hero-text-color: white;
+$hero-btn-border-radius: 100px;
+$hero-btn-font-size: 12px;
+$hero-btn-font-weight: 550;
+$hero-btn-pd: 4px 18px;
+
+.root {
+  display: flex;
+  justify-content: center;
+
+  .hero {
+    text-align: center;
+    padding-bottom: 24px;
+    display: block;
+
+    .hero_title1 {
+      width: 100%;
+      text-align: left;
+      margin-left: 20%;
+      font-weight: 600;
+      padding-bottom: 6px;
+    }
+
+    .hero_title2 {
+      width: 100%;
+      margin-left: 20%;
+      padding-bottom: 6px;
+    }
+
+    .hero_body {
+      padding-bottom: 12px;
+    }
+
+    .btn_login_hero {
+      border-radius: $hero-btn-border-radius;
+      font-size: $hero-btn-font-size;
+      font-weight: $hero-btn-font-weight;
+      padding: $hero-btn-pd;
+      text-transform: capitalize;
+      background-image: $gradient-btn-orange;
+      box-shadow: $btn-shadow-filled;
+    }
+  }
+}

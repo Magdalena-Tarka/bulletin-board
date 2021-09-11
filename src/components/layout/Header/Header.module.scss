@@ -1,25 +1,21 @@
 @import '../../../styles/settings.scss';
 
-$gradient-btn-orange: linear-gradient(30deg, #EA6362, #FFDEA7);
-$gradient-btn-blue: linear-gradient(30deg, #4b82c5, #00CDAC);
-$gradient-btn-pink: linear-gradient(30deg, #623aa2, #f97794);
-
 $header-text-color: white;
 $header-bg-color: #18141b;
-$header-btn-border-color: black;
+$header-btn-border-color: #201e22;
 $header-btn-border-radius: 100px;
 $header-btn-font-size: 12px;
 $header-btn-font-weight: 550;
-$header-btn-pd: 3px 12px;
+$header-btn-pd: 2px 9px;
 $header-logo-font: 'Roboto', sans-serif;
 
 .root {
   flex-grow: 1;
+  padding-bottom: 12px;
 
   * {
     background: transparent;
     box-shadow: none;
-    //color: $header-text-color;
   }
 
   .top_buttons {
@@ -33,11 +29,13 @@ $header-logo-font: 'Roboto', sans-serif;
       padding: $header-btn-pd;
       text-transform: capitalize;
       margin: 0 4px;
-      border: 3px solid $header-btn-border-color;
+      border: 1px solid $header-btn-border-color;
+
+      box-shadow: $btn-shadow-transparent;
     }
 
     .btn_LoggedIn span {
-      background: $gradient-btn-blue;
+      background: $gradient-btn-turq;
       background-clip: text;
       color: transparent;
     }
@@ -47,7 +45,7 @@ $header-logo-font: 'Roboto', sans-serif;
       color: transparent;
     }
     .btn_Admin span {
-      background: $gradient-btn-pink;
+      background: $gradient-btn-blue;
       background-clip: text;
       color: transparent;
     }
@@ -80,12 +78,14 @@ $header-logo-font: 'Roboto', sans-serif;
       }
 
       .btn_yourPosts {
-        background-image: $gradient-btn-blue;
+        background-image: $gradient-btn-turq;
+        box-shadow: $btn-shadow-filled;
       }
 
       .btn_login {
         margin-left: 10px;
         background-image: $gradient-btn-orange;
+        box-shadow: $btn-shadow-filled;
       }
     }
   }

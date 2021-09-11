@@ -50,7 +50,7 @@ const Component = ({ className, children }) => {
             </IconButton>
 
             <Typography variant="h6" className={styles.logo}>
-              Bulletin
+              Bulletin Board
             </Typography>
 
             <div className={styles.right_buttons}>
