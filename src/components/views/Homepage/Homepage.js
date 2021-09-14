@@ -1,23 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 //import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll/*, reduxActionCreator*/ } from '../../../redux/postsRedux';
+import { getActive, getAll/*, reduxActionCreator*/ } from '../../../redux/postsRedux';
 import { getUserStatus/*, reduxActionCreator*/ } from '../../../redux/userRedux';
 
 import styles from './Homepage.module.scss';
 import { Hero } from '../../features/Hero/Hero';
+import { PostSummary } from '../../features/PostSummary/PostSummary';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 
-const Component = ({ posts, userStatus }) => {
+const sortByDate = arr => {
+  arr.sort((a,b) => Number(new Date(a.publicationDate)) - Number(new Date(b.publicationDate)));
+  return arr;
+};
+
+const Component = ({ posts, userStatus, activePosts }) => {
+  //const newDate = new Date();
+  //console.log('newDate:', newDate);
 
   return (
     <div className={styles.root}>
@@ -28,19 +34,30 @@ const Component = ({ posts, userStatus }) => {
         justifyContent="center"
         alignItems="center"
       >
+        <Grid container justifyContent="center">
+          <Typography variant="h6">
+            Posts List
+          </Typography>
+        </Grid>
+
         <Grid className={styles.posts_buttons_top}
           container
           alignItems="center"
         >
-          <div className={styles.posts_buttons_top_left}>
+          {/*<div className={styles.posts_buttons_top_left}>
             <Button className={styles.btn_allPosts} color="inherit">All Posts</Button>
             {userStatus === 'is loggedOut' ? '' :
               <Button className={styles.btn_yourPosts} color="inherit">Your Posts</Button>
             }
-          </div>
+          </div>*/}
           <div className={styles.posts_buttons_top_right}>
             {userStatus === 'is loggedOut' ? '' :
-              <Button className={styles.btn_addPost} color="inherit">Add Post</Button>
+              <Button
+                className={styles.btn_createPost}
+                color="inherit"
+                component={Link}
+                to={'/post/add'}
+              >Create Post</Button>
             }
           </div>
         </Grid>
@@ -51,28 +68,30 @@ const Component = ({ posts, userStatus }) => {
           alignItems="center"
           direction="row"
         >
-          {posts.map(post => (
-            <Grid key={post.id} item xs={12} sm={4} md={3}>
-              <Card className={styles.post}>
-                <CardContent>
-                  <CardMedia
-                    className={styles.post_image}
-                    component="img"
-                    image={post.image}
-                    title="img"
-                  />
-                  <Typography className={styles.post_title} variant="subtitle1">{post.title}</Typography>
-                  <Typography className={styles.post_price} variant="subtitle2">Price: {post.price}$</Typography>
-                  <Typography className={styles.post_date} variant="subtitle2">Published: {post.publicationDate}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
+          {userStatus === 'is admin' ? <>
+            {posts.length && sortByDate(posts).map(post => (
+              <Grid key={post.id} item xs={12} sm={4} md={3}>
+                <PostSummary {...post}/>
+              </Grid>
+            ))}
+          </> : <>
+            {activePosts.length && sortByDate(activePosts).map(post => (
+              <Grid key={post.id} item xs={12} sm={4} md={3}>
+                <PostSummary {...post}/>
+              </Grid>
+            ))}
+          </>}
+
         </Grid>
 
         <div className={styles.posts_buttons_bottom}>
           {userStatus === 'is loggedOut' ? '' :
-            <Button className={styles.btn_addPost} color="inherit">Add Post</Button>
+            <Button
+              className={styles.btn_createPost}
+              color="inherit"
+              component={Link}
+              to={'/post/add'}
+            >Create Post</Button>
           }
         </div>
 
@@ -84,6 +103,7 @@ const Component = ({ posts, userStatus }) => {
 Component.propTypes = {
   children: PropTypes.node,
   posts: PropTypes.array,
+  activePosts: PropTypes.array,
   userStatus: PropTypes.string,
 };
 
@@ -91,6 +111,7 @@ Component.propTypes = {
 const mapStateToProps = state => ({
   posts: getAll(state),
   userStatus: getUserStatus(state),
+  activePosts: getActive(state),
 });
 
 /*const mapDispatchToProps = dispatch => ({

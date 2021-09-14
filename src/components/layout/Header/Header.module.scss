@@ -69,6 +69,8 @@ $header-logo-font: 'Roboto', sans-serif;
       font-weight: $header-btn-font-weight;
       text-transform: uppercase;
       font-family: $header-logo-font;
+      text-decoration: none;
+      color: $header-text-color;
     }
 
     .right_buttons {

@@ -1,0 +1,30 @@
+@import '../../../styles/settings.scss';
+
+$postSum-card-font-color: #3d2a50;
+$postSum-card-bg-color: #e5e7ea;
+$postSum-card-img-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+-8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+
+.post {
+  margin: 4px;
+  border-radius: 20px;
+  color: $postSum-card-font-color;
+  background: $postSum-card-bg-color;
+
+  .post_card {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+  }
+
+  .post_image {
+    height: 200px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    box-shadow: $postSum-card-img-shadow;
+  }
+
+  .post_title {
+    font-weight: 550;
+  }
+}

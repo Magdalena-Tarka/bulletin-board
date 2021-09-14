@@ -1,5 +1,7 @@
 /* selectors */
 export const getAll = ({posts}) => posts.data;
+export const getActive = ({posts}) =>
+  posts.data.filter(item => item.status === 'active');
 
 /* action name creator */
 const reducerName = 'posts';

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 import clsx from 'clsx';
 
@@ -62,11 +63,20 @@ const Component = ({ className, userStatus, setUserStatus }) => {
 
       <AppBar position="static">
         <Toolbar className={styles.navbar}>
-          <IconButton className={styles.logo_icon}>
+          <IconButton
+            className={styles.logo_icon}
+            component={Link}
+            to={'/'}
+          >
             <GestureIcon />
           </IconButton>
 
-          <Typography variant="h6" className={styles.logo}>
+          <Typography
+            className={styles.logo}
+            variant="h6"
+            component={Link}
+            to={'/'}
+          >
               Bulletin Board
           </Typography>
 
