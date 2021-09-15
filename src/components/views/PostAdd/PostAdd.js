@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';
@@ -29,6 +29,7 @@ import FormControl from '@material-ui/core/FormControl';
 
 const Component = ({ className, userStatus, addPost }) => {
   const [newPost, setNewPost] = useState('');
+  let history = useHistory();
 
   const handleNewPost = (event) => {
     setNewPost({...newPost, [event.target.name]: event.target.value});
@@ -61,6 +62,7 @@ const Component = ({ className, userStatus, addPost }) => {
         id: uuidv4(),
       });
       setNewPost('');
+      history.push('/');
     }
   };
 
@@ -83,8 +85,9 @@ const Component = ({ className, userStatus, addPost }) => {
                   className={clsx(styles.input, styles.title)}
                   onChange={handleNewPost}
                   name="title"
-                  placeholder="title"
+                  placeholder="title*"
                   helperText="max. 30 characters"
+                  value={newPost.title}
                   required
                   inputProps={{
                     minLength: 5,
@@ -93,11 +96,12 @@ const Component = ({ className, userStatus, addPost }) => {
                   fullWidth
                 />
                 <TextField
-                  className={clsx(styles.input, styles.describtion)}
+                  className={clsx(styles.input, styles.description)}
                   onChange={handleNewPost}
                   name="content"
-                  placeholder="description"
+                  placeholder="description*"
                   helperText="max. 500 characters"
+                  value={newPost.description}
                   required
                   multiline={true}
                   rows="5"
@@ -112,9 +116,10 @@ const Component = ({ className, userStatus, addPost }) => {
                   onChange={handleNewPost}
                   name="price"
                   type="number"
-                  placeholder="price"
-                  required
+                  placeholder="price*"
+                  value={newPost.price}
                   helperText=" "
+                  required
                   inputProps={{
                     min: 1,
                     max: 99999,
@@ -129,13 +134,13 @@ const Component = ({ className, userStatus, addPost }) => {
                     onChange={handleNewPost}
                     required
                     name="status"
-                    value=""
+                    value={newPost.status}
                     displayEmpty
                   >
                     <MenuItem value="" disabled>status</MenuItem>
-                    <MenuItem value="Draft">draft</MenuItem>
-                    <MenuItem value="Active">active</MenuItem>
-                    <MenuItem value="Closed">closed</MenuItem>
+                    <MenuItem value="draft">draft</MenuItem>
+                    <MenuItem value="active">active</MenuItem>
+                    <MenuItem value="closed">closed</MenuItem>
                   </Select>
                   <FormHelperText> </FormHelperText>
                 </FormControl>
@@ -145,6 +150,7 @@ const Component = ({ className, userStatus, addPost }) => {
                   name="image"
                   placeholder="url to your image"
                   helperText=".jpg, .jpeg, .png, .gif"
+                  value={newPost.image}
                 />
                 {/*<TextField
                   className={clsx(styles.input, styles.image)}
@@ -155,13 +161,15 @@ const Component = ({ className, userStatus, addPost }) => {
                   size="medium"
                   placeholder="image"
                   helperText=".jpg, .jpeg, .png, .gif"
+                  value={newPost.image}
                 />*/}
                 <TextField
                   className={clsx(styles.input, styles.email)}
                   onChange={handleNewPost}
                   name="email"
-                  placeholder="your email"
+                  placeholder="your email*"
                   helperText=" "
+                  value={newPost.email}
                   required
                   inputProps={{
                     minLength: 9,
@@ -179,6 +187,7 @@ const Component = ({ className, userStatus, addPost }) => {
                   name="phone"
                   placeholder="phone"
                   helperText=" "
+                  value={newPost.phone}
                   inputProps={{
                     minLength: 9,
                     maxLength: 15,
@@ -194,6 +203,7 @@ const Component = ({ className, userStatus, addPost }) => {
                   onChange={handleNewPost}
                   name="location"
                   placeholder="location"
+                  value={newPost.location}
                   inputProps={{
                     minLength: 3,
                     maxLength: 30,
@@ -211,8 +221,6 @@ const Component = ({ className, userStatus, addPost }) => {
               className={styles.btn_addPost}
               type="submit"
               onClick={submitForm}
-              component={Link}
-              to={'/'}
             >
               Add post
             </Button>
