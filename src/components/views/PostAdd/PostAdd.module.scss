@@ -1,3 +1,108 @@
 @import '../../../styles/settings.scss';
 
-//.root {}
+$post-text-color: white;
+$post-btn-border-radius: 100px;
+$post-btn-font-size: 12px;
+$post-btn-font-weight: 550;
+$post-btn-pd: 4px 18px;
+$post-card-bg-color: #e0e0e0;
+$post-card-inner-shadow: inset 6px 6px 6px 0 rgba(0, 0, 0, 0.2),
+inset -6px -6px 6px 0 rgba(255, 255, 255, 0.5);
+
+.root {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .post_wrapper {
+    margin: 0 auto;
+
+    .post_card {
+      width: 100%;
+      border-radius: 20px;
+      padding: 12px 12px;
+      background: $post-card-bg-color;
+      text-align: center;
+
+      *::before, ::after {
+        border: none;
+      }
+
+      .post_title {
+        font-weight: 550;
+        padding: 14px 0 8px 0;
+      }
+
+      .post_form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .input {
+        margin-bottom: 12px;
+
+        input {
+          border-radius: 100px;
+          padding: 10px 24px;
+          box-shadow: $post-card-inner-shadow;
+        }
+
+        p {padding-left: 12px;}
+      }
+
+      .describtion {
+        box-shadow: $post-card-inner-shadow;
+        border-radius: 21px;
+        margin-bottom: 36px;
+
+        textarea {
+          padding: 10px 24px;
+        }
+
+        p {
+          padding-left: 12px;
+          margin-bottom: -24px;
+        }
+      }
+
+      .price, .status, .image, .email, .phone, .location {
+        width: 70%;
+      }
+
+      .price {
+        width: 50%;
+
+        p {
+          padding: 0;
+        }
+      }
+
+      .status {
+        width: 40%;
+
+        :first-child:not(span) {
+          border-radius: 100px;
+          padding: 10px 24px;
+          box-shadow: $post-card-inner-shadow;
+          text-align: left;
+        }
+
+        svg {
+          position: static;
+        }
+      }
+
+      .btn_addPost {
+        border-radius: $post-btn-border-radius;
+        font-size: $post-btn-font-size;
+        font-weight: $post-btn-font-weight;
+        padding: $post-btn-pd;
+        text-transform: capitalize;
+        background-image: $gradient-btn-orange;
+        box-shadow: $btn-shadow-filled;
+        color: #201e22;
+        margin: 12px 0 32px 0;
+      }
+    }
+  }
+}

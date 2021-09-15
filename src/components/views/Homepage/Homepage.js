@@ -22,8 +22,6 @@ const sortByDate = arr => {
 };
 
 const Component = ({ posts, userStatus, activePosts }) => {
-  //const newDate = new Date();
-  //console.log('newDate:', newDate);
 
   return (
     <div className={styles.root}>
