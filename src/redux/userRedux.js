@@ -1,5 +1,6 @@
 /* selectors */
 export const getUserStatus = ({user}) => user.userStatus;
+export const getUserEmail = ({user}) => user.userEmail;
 
 /* action name creator */
 const reducerName = 'user';
@@ -15,7 +16,6 @@ export const setUserStatus = payload => ({ payload, type: SET_USER_STATUS });
 
 /* reducer */
 export const reducer = (statePart = [], action = {}) => {
-  //console.log('action.payload:', action.payload);
   switch (action.type) {
     case SET_USER_STATUS: {
       return {

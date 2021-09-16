@@ -37,16 +37,16 @@ $post-btn-pd: 4px 18px;
       background: $posts-card-bg-color;
       text-align: center;
 
-      .post_title {
+      .card_title {
         font-weight: 550;
         padding: 14px 0 8px 0;
       }
 
-      .post_content {
+      .card_content {
         display: flex;
         flex-direction: column;
 
-        .header {
+        .card_header {
           display: flex;
           margin-bottom: 24px;
 
@@ -64,7 +64,7 @@ $post-btn-pd: 4px 18px;
             }
           }
 
-          .details {
+          .post_details {
             margin: 0 4px 0 12px;
             text-align: left;
             border-radius: 20px;
@@ -99,7 +99,7 @@ $post-btn-pd: 4px 18px;
           }
         }
 
-        .describtion {
+        .card_description {
           margin: 0 4px;
           border-radius: 20px;
           text-align: left;

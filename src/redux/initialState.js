@@ -58,7 +58,6 @@ export const initialState = {
         title: 'Lorem ipsum dolor',
         content: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.',
         price: 19,
-        //image: 'https://images.pexels.com/photos/1300578/pexels-photo-1300578.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
         image: 'https://images.pexels.com/photos/4491536/pexels-photo-4491536.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
         publicationDate: '14/09/2021',
         updateDate: '14/09/2021',
@@ -140,6 +139,6 @@ export const initialState = {
   },
   user: {
     userStatus: 'is loggedOut',
-    userEmail: {},
+    userEmail: 'tina.turner@example.com',
   },
 };

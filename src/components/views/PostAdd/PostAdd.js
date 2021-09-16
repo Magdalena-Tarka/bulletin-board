@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';

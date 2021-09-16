@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll/*, reduxActionCreator*/ } from '../../../redux/postsRedux';
-import { getUserStatus/*, reduxActionCreator*/ } from '../../../redux/userRedux';
+import { getAll } from '../../../redux/postsRedux';
+import { getUserStatus, getUserEmail } from '../../../redux/userRedux';
 
 import styles from './Post.module.scss';
 
@@ -20,29 +20,25 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIcon from '@material-ui/icons/Phone';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
-const Component = ({ className, userStatus, posts, ...props }) => {
-  posts.map(post => {
-    const postIdFromParam = post.id === props.match.params.id;
-    console.log('props.match.params.id:', props.match.params.id);
-    return postIdFromParam;
-  });
-  console.log('posts:', posts);
+const Component = ({ className, userStatus, userEmail, posts, ...props }) => {
+
+  const postAuthorEmail = posts.filter(post => post.id === props.match.params.id && post.email)[0].email;
 
   return (
     <div className={clsx(className, styles.root)}>
 
-      <Grid
-        className={styles.post_wrapper}
-        container item md={12}
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Card className={styles.post_card}>
-          <Typography className={styles.post_title} variant="h6">Post details</Typography>
+      {posts.map(post => post.id !== props.match.params.id ? null :
+        <Grid key={post.id}
+          className={styles.post_wrapper}
+          container item md={12}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Card className={styles.post_card}>
+            <Typography className={styles.card_title} variant="h6">Post details</Typography>
 
-          {posts.map(post => post.id !== props.match.params.id ? '' :
-            <CardContent key={post.id} className={styles.post_content}>
-              <Grid className={styles.header} item xs={12}>
+            <CardContent className={styles.card_content}>
+              <Grid className={styles.card_header} item xs={12}>
                 <Grid className={styles.post_image} item xs={12} sm={6}>
                   <CardMedia
                     className={styles.image}
@@ -52,7 +48,7 @@ const Component = ({ className, userStatus, posts, ...props }) => {
                   />
                 </Grid>
 
-                <Grid className={styles.details} item xs={12} sm={6}
+                <Grid className={styles.post_details} item xs={12} sm={6}
                 >
                   <Typography
                     className={clsx(styles.post, styles.title)}
@@ -102,11 +98,9 @@ const Component = ({ className, userStatus, posts, ...props }) => {
                   </Typography>
 
                 </Grid>
-
               </Grid>
 
-              <Grid
-                className={styles.describtion}
+              <Grid className={styles.card_description}
                 item xs={12}
                 diretcion="row"
               >
@@ -125,20 +119,19 @@ const Component = ({ className, userStatus, posts, ...props }) => {
                   variant="subtitle2"
                 >Last Modified: {post.updateDate}</Typography>
               </Grid>
-
             </CardContent>
-          )}
 
-          {posts.map(post => post.id === props.match.params.id && <>
-            <Button
-              key={post.id}
-              className={styles.btn_editPost}
-              component={Link}
-              to={`/post/${post.id}/edit`}
-            >Edit Post</Button>
-          </>)}
-        </Card>
-      </Grid>
+            {(userStatus === 'is loggedIn' && userEmail === postAuthorEmail) || userStatus === 'is admin' ? (
+              <Button
+                key={post.id}
+                className={styles.btn_editPost}
+                component={Link}
+                to={`/post/${post.id}/edit`}
+              >Edit Post</Button>
+            ) : null }
+          </Card>
+        </Grid>
+      )}
 
     </div>
   );
@@ -149,6 +142,7 @@ Component.propTypes = {
   className: PropTypes.string,
   posts: PropTypes.array,
   userStatus: PropTypes.string,
+  userEmail: PropTypes.string,
   match: PropTypes.object,
 };
 
@@ -156,6 +150,7 @@ Component.propTypes = {
 const mapStateToProps = state => ({
   posts: getAll(state),
   userStatus: getUserStatus(state),
+  userEmail: getUserEmail(state),
 });
 
 /*const mapDispatchToProps = dispatch => ({
