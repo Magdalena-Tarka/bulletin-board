@@ -29,23 +29,6 @@ $posts-btn-pd: 4px 18px;
         border: 1px solid $posts-btn-border-color;
       }
 
-      .posts_buttons_top_left {
-        .btn_allPosts {
-          background: $gradient-btn-orange;
-          background-clip: text;
-          color: transparent;
-          box-shadow: $btn-shadow-transparent;
-        }
-
-        .btn_yourPosts {
-          background: $gradient-btn-turq;
-          background-clip: text;
-          color: transparent;
-          box-shadow: $btn-shadow-transparent;
-          box-shadow: $btn-shadow-transparent;
-        }
-      }
-
       .posts_buttons_top_right {
         margin-left: auto;
 

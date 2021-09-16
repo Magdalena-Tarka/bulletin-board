@@ -139,6 +139,7 @@ export const initialState = {
   },
   user: {
     userStatus: 'is loggedOut',
-    userEmail: 'tina.turner@example.com',
+    userEmail: 'amisa.aba@example.com',
+    userNickname: 'Amisa123',
   },
 };

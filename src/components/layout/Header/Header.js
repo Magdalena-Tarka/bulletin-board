@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getUserStatus, setUserStatus } from '../../../redux/userRedux';
+import { getUserStatus, getUserNickname, setUserStatus } from '../../../redux/userRedux';
 
 import styles from './Header.module.scss';
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Component = ({ className, userStatus, setUserStatus }) => {
+const Component = ({ className, userStatus, userNickname, setUserStatus, ...props }) => {
   const classes = useStyles();
 
   return (
@@ -77,13 +77,21 @@ const Component = ({ className, userStatus, setUserStatus }) => {
             component={Link}
             to={'/'}
           >
-              Bulletin Board
+            Bulletin Board
           </Typography>
 
           <div className={styles.right_buttons}>
+
+
             {userStatus === 'is loggedOut' ? '' :
-              <Button className={styles.btn_yourPosts} color="inherit">Your Posts</Button>
+              <Button className={styles.btn_yourPosts}
+                color="inherit"
+                component={Link}
+                to={`/post/${userNickname}/posts`}
+              >Your Posts</Button>
             }
+
+
             <Button className={styles.btn_login} color="inherit">
               {userStatus === 'is loggedOut' ? 'Log In' : 'Log Out'}
             </Button>
@@ -105,12 +113,14 @@ const Component = ({ className, userStatus, setUserStatus }) => {
 Component.propTypes = {
   className: PropTypes.string,
   userStatus: PropTypes.string,
+  userNickname: PropTypes.string,
   setUserStatus: PropTypes.func,
 };
 
 
 const mapStateToProps = state => ({
   userStatus: getUserStatus(state),
+  userNickname: getUserNickname(state),
 });
 
 const mapDispatchToProps = dispatch => ({

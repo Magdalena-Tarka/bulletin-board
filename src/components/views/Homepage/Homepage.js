@@ -5,12 +5,13 @@ import {Link} from 'react-router-dom';
 //import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getActive, getAll/*, reduxActionCreator*/ } from '../../../redux/postsRedux';
-import { getUserStatus/*, reduxActionCreator*/ } from '../../../redux/userRedux';
+import { getAll, getActive } from '../../../redux/postsRedux';
+import { getUserStatus, getUserEmail } from '../../../redux/userRedux';
 
 import styles from './Homepage.module.scss';
 import { Hero } from '../../features/Hero/Hero';
 import { PostSummary } from '../../features/PostSummary/PostSummary';
+import { NotFound } from '../NotFound/NotFound';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -21,11 +22,14 @@ const sortByDate = arr => {
   return arr;
 };
 
-const Component = ({ posts, userStatus, activePosts }) => {
+const Component = ({ posts, activePosts, userStatus, userEmail, ...props }) => {
+
+  const userNickname = props.match.params.nickname;
+  const postsByEmail = posts.filter(post => post.email === userEmail);
 
   return (
     <div className={styles.root}>
-      {userStatus === 'is loggedOut' ? <Hero /> : ''}
+      {userStatus === 'is loggedOut' && !userNickname ? <Hero /> : ''}
       <Grid
         className={styles.posts_wrapper}
         container
@@ -42,12 +46,6 @@ const Component = ({ posts, userStatus, activePosts }) => {
           container
           alignItems="center"
         >
-          {/*<div className={styles.posts_buttons_top_left}>
-            <Button className={styles.btn_allPosts} color="inherit">All Posts</Button>
-            {userStatus === 'is loggedOut' ? '' :
-              <Button className={styles.btn_yourPosts} color="inherit">Your Posts</Button>
-            }
-          </div>*/}
           <div className={styles.posts_buttons_top_right}>
             {userStatus === 'is loggedOut' ? '' :
               <Button
@@ -66,24 +64,33 @@ const Component = ({ posts, userStatus, activePosts }) => {
           alignItems="center"
           direction="row"
         >
-          {userStatus === 'is admin' ? <>
-            {posts.length && sortByDate(posts).map(post => (
+
+          {!userNickname ? (
+            userStatus === 'is admin' ? (
+              posts.length && sortByDate(posts).map(post => (
+                <Grid key={post.id} item xs={12} sm={4} md={3}>
+                  <PostSummary {...post}/>
+                </Grid>
+              ))
+            ) : (
+              activePosts.length && sortByDate(activePosts).map(post => (
+                <Grid key={post.id} item xs={12} sm={4} md={3}>
+                  <PostSummary {...post}/>
+                </Grid>
+              ))
+            )
+          ) : (
+            postsByEmail.length && userStatus === 'is loggedIn' ? sortByDate(postsByEmail).map(post => (
               <Grid key={post.id} item xs={12} sm={4} md={3}>
                 <PostSummary {...post}/>
               </Grid>
-            ))}
-          </> : <>
-            {activePosts.length && sortByDate(activePosts).map(post => (
-              <Grid key={post.id} item xs={12} sm={4} md={3}>
-                <PostSummary {...post}/>
-              </Grid>
-            ))}
-          </>}
+            )) : (<NotFound />)
+          )}
 
         </Grid>
 
         <div className={styles.posts_buttons_bottom}>
-          {userStatus === 'is loggedOut' ? '' :
+          {userStatus === 'is loggedOut' ? null :
             <Button
               className={styles.btn_createPost}
               color="inherit"
@@ -92,7 +99,6 @@ const Component = ({ posts, userStatus, activePosts }) => {
             >Create Post</Button>
           }
         </div>
-
       </Grid>
     </div>
   );
@@ -103,13 +109,15 @@ Component.propTypes = {
   posts: PropTypes.array,
   activePosts: PropTypes.array,
   userStatus: PropTypes.string,
+  userEmail: PropTypes.string,
+  match: PropTypes.object,
 };
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state, {...props}) => ({
   posts: getAll(state),
-  userStatus: getUserStatus(state),
   activePosts: getActive(state),
+  userStatus: getUserStatus(state),
+  userEmail: getUserEmail(state),
 });
 
 /*const mapDispatchToProps = dispatch => ({

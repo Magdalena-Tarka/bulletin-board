@@ -32,6 +32,7 @@ const App = () => (
               <Route exact path='/post/add' component={PostAdd} />
               <Route exact path='/post/:id' component={Post} />
               <Route exact path='/post/:id/edit' component={PostEdit} />
+              <Route exact path='/post/:nickname/posts' component={Homepage} />
               <Route path='*' component={NotFound} />
             </Switch>
           </MainLayout>
