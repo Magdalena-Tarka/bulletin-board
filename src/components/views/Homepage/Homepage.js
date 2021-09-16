@@ -29,25 +29,69 @@ const Component = ({ posts, activePosts, userStatus, userEmail, ...props }) => {
 
   return (
     <div className={styles.root}>
-      {userStatus === 'is loggedOut' && !userNickname ? <Hero /> : ''}
-      <Grid
-        className={styles.posts_wrapper}
-        container
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Grid container justifyContent="center">
-          <Typography variant="h6">
-            Posts List
-          </Typography>
-        </Grid>
+      {userStatus === 'is loggedOut' && !userNickname ? <Hero /> : null}
 
-        <Grid className={styles.posts_buttons_top}
+      {userStatus === 'is loggedOut' && userNickname ? <NotFound /> : (
+        <Grid
+          className={styles.posts_wrapper}
           container
+          justifyContent="center"
           alignItems="center"
         >
-          <div className={styles.posts_buttons_top_right}>
-            {userStatus === 'is loggedOut' ? '' :
+          <Grid container justifyContent="center">
+            <Typography variant="h6">
+              Posts List
+            </Typography>
+          </Grid>
+
+          <Grid className={styles.posts_buttons_top}
+            container
+            alignItems="center"
+          >
+            <div className={styles.posts_buttons_top_right}>
+              {userStatus === 'is loggedOut' ? '' :
+                <Button
+                  className={styles.btn_createPost}
+                  color="inherit"
+                  component={Link}
+                  to={'/post/add'}
+                >Create Post</Button>
+              }
+            </div>
+          </Grid>
+
+          <Grid
+            className={styles.posts}
+            container
+            alignItems="center"
+            direction="row"
+          >
+
+            {!userNickname ? (
+              userStatus === 'is admin' ? (
+                posts.length && sortByDate(posts).map(post => (
+                  <Grid key={post.id} item xs={12} sm={4} md={3}>
+                    <PostSummary {...post}/>
+                  </Grid>
+                ))
+              ) : (
+                activePosts.length && sortByDate(activePosts).map(post => (
+                  <Grid key={post.id} item xs={12} sm={4} md={3}>
+                    <PostSummary {...post}/>
+                  </Grid>
+                ))
+              )
+            ) : (
+              postsByEmail.length && userStatus === 'is loggedIn' ? sortByDate(postsByEmail).map(post => (
+                <Grid key={post.id} item xs={12} sm={4} md={3}>
+                  <PostSummary {...post}/>
+                </Grid>
+              )) : null
+            )}
+          </Grid>
+
+          <div className={styles.posts_buttons_bottom}>
+            {userStatus === 'is loggedOut' ? null :
               <Button
                 className={styles.btn_createPost}
                 color="inherit"
@@ -57,49 +101,8 @@ const Component = ({ posts, activePosts, userStatus, userEmail, ...props }) => {
             }
           </div>
         </Grid>
+      )}
 
-        <Grid
-          className={styles.posts}
-          container
-          alignItems="center"
-          direction="row"
-        >
-
-          {!userNickname ? (
-            userStatus === 'is admin' ? (
-              posts.length && sortByDate(posts).map(post => (
-                <Grid key={post.id} item xs={12} sm={4} md={3}>
-                  <PostSummary {...post}/>
-                </Grid>
-              ))
-            ) : (
-              activePosts.length && sortByDate(activePosts).map(post => (
-                <Grid key={post.id} item xs={12} sm={4} md={3}>
-                  <PostSummary {...post}/>
-                </Grid>
-              ))
-            )
-          ) : (
-            postsByEmail.length && userStatus === 'is loggedIn' ? sortByDate(postsByEmail).map(post => (
-              <Grid key={post.id} item xs={12} sm={4} md={3}>
-                <PostSummary {...post}/>
-              </Grid>
-            )) : (<NotFound />)
-          )}
-
-        </Grid>
-
-        <div className={styles.posts_buttons_bottom}>
-          {userStatus === 'is loggedOut' ? null :
-            <Button
-              className={styles.btn_createPost}
-              color="inherit"
-              component={Link}
-              to={'/post/add'}
-            >Create Post</Button>
-          }
-        </div>
-      </Grid>
     </div>
   );
 };

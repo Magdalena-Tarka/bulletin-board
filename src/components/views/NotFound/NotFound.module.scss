@@ -1,3 +1,81 @@
 @import '../../../styles/settings.scss';
 
-//.root {}
+$post-btn-border-radius: 100px;
+$post-btn-font-size: 12px;
+$post-btn-font-weight: 550;
+$post-btn-pd: 4px 18px;
+
+.wrapper {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  min-height: 60vh;
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    margin-right: 5%;
+
+    .errorStatus {
+      line-height: 0.8;
+      font-size: 150px;
+      font-weight: 550;
+      background: $gradient-btn-peach;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .notFound {
+      line-height: 1;
+      padding-right: 5%;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+
+    .title1 {
+      width: 100%;
+      text-align: left;
+      line-height: 1;
+    }
+
+    .title2 {
+      width: 100%;
+      text-align: left;
+      margin-left: 25%;
+
+      span {
+        font-weight: 550;
+        background: $gradient-btn-peach;
+        background-clip: text;
+        color: transparent;
+      }
+    }
+
+    .description {
+      font-size: 12px;
+    }
+
+    .btn_notFound {
+      border-radius: $post-btn-border-radius;
+      font-size: $post-btn-font-size;
+      font-weight: $post-btn-font-weight;
+      padding: $post-btn-pd;
+      text-transform: capitalize;
+      background-image: $gradient-btn-peach;
+      box-shadow: $btn-shadow-filled;
+      color: white;
+      margin: 24px auto 0 0;
+
+      .btn_arrow  {
+        margin-left: -3px;
+        margin-right: 8px;
+      }
+    }
+  }
+}
