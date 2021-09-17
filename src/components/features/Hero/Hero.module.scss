@@ -1,11 +1,5 @@
 @import '../../../styles/settings.scss';
 
-$hero-text-color: white;
-$hero-btn-border-radius: 100px;
-$hero-btn-font-size: 12px;
-$hero-btn-font-weight: 550;
-$hero-btn-pd: 4px 18px;
-
 .root {
   display: flex;
   justify-content: center;
@@ -33,14 +27,8 @@ $hero-btn-pd: 4px 18px;
       padding-bottom: 12px;
     }
 
-    .btn_login_hero {
-      border-radius: $hero-btn-border-radius;
-      font-size: $hero-btn-font-size;
-      font-weight: $hero-btn-font-weight;
-      padding: $hero-btn-pd;
-      text-transform: capitalize;
-      background-image: $gradient-btn-orange;
-      box-shadow: $btn-shadow-filled;
+    .btn_login {
+      background-image: $hero-btn-bg-image;
     }
   }
 }

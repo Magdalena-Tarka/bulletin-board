@@ -1,25 +1,5 @@
 @import '../../../styles/settings.scss';
 
-$posts-text-color: white;
-$posts-btn-border-color: #201e22;
-$posts-btn-border-radius: 100px;
-$posts-btn-font-size: 12px;
-$posts-btn-font-weight: 550;
-$posts-btn-pd: 4px 18px;
-$posts-card-font-color: #3d2a50;
-//$posts-card-bg-color: #f5f6fa; was ok!
-$posts-card-bg-color: #e0e0e0;
-$posts-card-img-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
--8px -8px 12px 0 rgba(255, 255, 255, 0.3);
-
-$posts-card-inner-shadow: inset 6px 6px 10px 0 rgba(0, 0, 0, 0.2),
-inset -6px -6px 10px 0 rgba(255, 255, 255, 0.5);
-
-$post-btn-border-radius: 100px;
-$post-btn-font-size: 12px;
-$post-btn-font-weight: 550;
-$post-btn-pd: 4px 18px;
-
 .root {
   display: flex;
   justify-content: center;
@@ -32,13 +12,14 @@ $post-btn-pd: 4px 18px;
 
     .post_card {
       width: 100%;
-      border-radius: 20px;
-      padding: 12px 12px;
-      background: $posts-card-bg-color;
+      border-radius: $post-card-border-radius;
+      padding: 12px;
+      background: $post-card-bg-color;
       text-align: center;
+      color: $post-card-font-color;
 
       .card_title {
-        font-weight: 550;
+        font-weight: $post-card-title-weight;
         padding: 14px 0 8px 0;
       }
 
@@ -52,12 +33,12 @@ $post-btn-pd: 4px 18px;
 
           .post_image {
             margin: 0 12px 0 4px;
-            border-radius: 20px;
-            height: 250px;
-            box-shadow: $posts-card-img-shadow;
+            border-radius: $post-card-box-radius;
+            height: $post-card-box-height;
+            box-shadow: $post-card-img-shadow;
 
             .image {
-              border-radius: 20px;
+              border-radius: $post-card-box-radius;
               width: 100%;
               height: 100%;
               object-fit: cover;
@@ -65,14 +46,14 @@ $post-btn-pd: 4px 18px;
           }
 
           .post_details {
-            margin: 0 4px 0 12px;
-            text-align: left;
-            border-radius: 20px;
-            height: 250px;
-            box-shadow: $posts-card-inner-shadow;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            margin: 0 4px 0 12px;
+            text-align: left;
+            border-radius: $post-card-box-radius;
+            height: $post-card-box-height;
+            box-shadow: $post-card-inner-shadow;
 
             .post {
               padding-left: 20%;
@@ -91,7 +72,7 @@ $post-btn-pd: 4px 18px;
 
             .title {
               text-transform: capitalize;
-              font-weight: 550;
+              font-weight: $post-card-subtitle-weight;
             }
             .email svg {
               vertical-align: text-bottom;
@@ -101,7 +82,7 @@ $post-btn-pd: 4px 18px;
 
         .card_description {
           margin: 0 4px;
-          border-radius: 20px;
+          border-radius: $post-card-box-radius;
           text-align: left;
 
           .content {
@@ -114,20 +95,14 @@ $post-btn-pd: 4px 18px;
 
           .title {
             text-transform: capitalize;
-            font-weight: 550;
+            font-weight: $post-card-subtitle-weight;
           }
         }
       }
 
       .btn_editPost {
-        border-radius: $post-btn-border-radius;
-        font-size: $post-btn-font-size;
-        font-weight: $post-btn-font-weight;
-        padding: $post-btn-pd;
-        text-transform: capitalize;
-        background-image: $gradient-btn-blue;
-        box-shadow: $btn-shadow-filled;
-        color: #201e22;
+        background-image: $post-btn-bg-image;
+        color: $btn-filled-text-color-dark;
         margin: 12px 0 32px 0;
       }
     }

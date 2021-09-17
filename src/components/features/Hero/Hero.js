@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 import { setUserStatus } from '../../../redux/userRedux';
 
 import styles from './Hero.module.scss';
+import { Button } from '../../common/Button/Button';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 
 const Component = ({ className, setUserStatus }) => (
   <div className={clsx(className, styles.root)}>
@@ -35,7 +35,8 @@ const Component = ({ className, setUserStatus }) => (
         dignissimos laborum fugiat deleniti?
       </Typography>
 
-      <Button className={styles.btn_login_hero}
+      <Button className={styles.btn_login}
+        variant="filled"
         color="inherit"
         onClick={() => setUserStatus('is loggedIn')}
       >

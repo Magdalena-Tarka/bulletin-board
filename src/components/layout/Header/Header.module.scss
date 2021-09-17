@@ -1,14 +1,5 @@
 @import '../../../styles/settings.scss';
 
-$header-text-color: white;
-$header-bg-color: #18141b;
-$header-btn-border-color: #201e22;
-$header-btn-border-radius: 100px;
-$header-btn-font-size: 12px;
-$header-btn-font-weight: 550;
-$header-btn-pd: 2px 9px;
-$header-logo-font: 'Roboto', sans-serif;
-
 .root {
   flex-grow: 1;
   padding-bottom: 12px;
@@ -20,32 +11,19 @@ $header-logo-font: 'Roboto', sans-serif;
 
   .top_buttons {
     padding: 12px 0;
-    //background: $header-bg-color;
 
-    button {
-      border-radius: $header-btn-border-radius;
-      font-size: $header-btn-font-size;
-      font-weight: $header-btn-font-weight;
-      padding: $header-btn-pd;
-      text-transform: capitalize;
-      margin: 0 4px;
-      border: 1px solid $header-btn-border-color;
-
-      box-shadow: $btn-shadow-transparent;
-    }
-
-    .btn_LoggedIn span {
-      background: $gradient-btn-turq;
+    .btn_loggedIn span {
+      background: $header-btn-top-gradient-logIn;
       background-clip: text;
       color: transparent;
     }
-    .btn_LoggedOut span {
-      background: $gradient-btn-orange;
+    .btn_loggedOut span {
+      background: $header-btn-top-gradient-logOut;
       background-clip: text;
       color: transparent;
     }
-    .btn_Admin span {
-      background: $gradient-btn-blue;
+    .btn_admin span {
+      background: $header-btn-top-gradient-admin;
       background-clip: text;
       color: transparent;
     }
@@ -66,34 +44,24 @@ $header-logo-font: 'Roboto', sans-serif;
 
     .logo {
       flex-grow: 1;
-      font-weight: $header-btn-font-weight;
+      font-weight: $header-logo-font-weight;
       text-transform: uppercase;
       font-family: $header-logo-font;
       text-decoration: none;
       color: $header-text-color;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
     }
 
-    .right_buttons {
+    .btn_yourPosts {
+      background-image: $header-btn-yourPosts-bg-gradient;
+    }
 
-      * {
-        border-radius: $header-btn-border-radius;
-        font-size: $header-btn-font-size;
-        font-weight: $header-btn-font-weight;
-        padding: $header-btn-pd;
-        text-transform: capitalize;
-      }
-
-      .btn_yourPosts {
-        background-image: $gradient-btn-turq;
-        box-shadow: $btn-shadow-filled;
-        margin: 0 4px;
-      }
-
-      .btn_login {
-        background-image: $gradient-btn-orange;
-        box-shadow: $btn-shadow-filled;
-        margin: 0 4px;
-      }
+    .btn_login {
+      background-image: $header-btn-login-bg-gradient;
     }
   }
 }

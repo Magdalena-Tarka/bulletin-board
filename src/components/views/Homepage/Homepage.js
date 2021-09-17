@@ -10,12 +10,12 @@ import { getUserStatus, getUserEmail } from '../../../redux/userRedux';
 
 import styles from './Homepage.module.scss';
 import { Hero } from '../../features/Hero/Hero';
+import { Button } from '../../common/Button/Button';
 import { PostSummary } from '../../features/PostSummary/PostSummary';
 import { NotFound } from '../NotFound/NotFound';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 
 const sortByDate = arr => {
   arr.sort((a,b) => Number(new Date(a.publicationDate)) - Number(new Date(b.publicationDate)));
@@ -52,6 +52,7 @@ const Component = ({ posts, activePosts, userStatus, userEmail, ...props }) => {
               {userStatus === 'is loggedOut' ? '' :
                 <Button
                   className={styles.btn_createPost}
+                  variant="filled"
                   color="inherit"
                   component={Link}
                   to={'/post/add'}
@@ -94,6 +95,7 @@ const Component = ({ posts, activePosts, userStatus, userEmail, ...props }) => {
             {userStatus === 'is loggedOut' ? null :
               <Button
                 className={styles.btn_createPost}
+                variant="filled"
                 color="inherit"
                 component={Link}
                 to={'/post/add'}

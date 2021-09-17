@@ -9,10 +9,10 @@ import { getAll } from '../../../redux/postsRedux';
 import { getUserStatus, getUserEmail } from '../../../redux/userRedux';
 
 import styles from './Post.module.scss';
+import { Button } from '../../common/Button/Button';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -125,6 +125,7 @@ const Component = ({ className, userStatus, userEmail, posts, ...props }) => {
               <Button
                 key={post.id}
                 className={styles.btn_editPost}
+                variant="filled"
                 component={Link}
                 to={`/post/${post.id}/edit`}
               >Edit Post</Button>

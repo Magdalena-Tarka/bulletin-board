@@ -1,12 +1,5 @@
 @import '../../../styles/settings.scss';
 
-$posts-text-color: white;
-$posts-btn-border-color: #201e22;
-$posts-btn-border-radius: 100px;
-$posts-btn-font-size: 12px;
-$posts-btn-font-weight: 550;
-$posts-btn-pd: 4px 18px;
-
 .root {
   min-height: 400px;
   color: $posts-text-color;
@@ -16,51 +9,20 @@ $posts-btn-pd: 4px 18px;
     padding: 24px 0;
 
     .posts_buttons_top {
-       width: 100%;
+      width: 100%;
       display: flex;
-
-      button {
-        border-radius: $posts-btn-border-radius;
-        font-size: $posts-btn-font-size;
-        font-weight: $posts-btn-font-weight;
-        padding: 3px 12px;
-        text-transform: capitalize;
-        margin: 0 4px;
-        border: 1px solid $posts-btn-border-color;
-      }
 
       .posts_buttons_top_right {
         margin-left: auto;
-
-        .btn_createPost {
-          border-radius: $posts-btn-border-radius;
-          font-size: $posts-btn-font-size;
-          font-weight: $posts-btn-font-weight;
-          padding: $posts-btn-pd;
-          text-transform: capitalize;
-          background-image: $gradient-btn-blue;
-          border: none;
-          box-shadow: $btn-shadow-filled;
-          margin-right: 4px;
-        }
       }
     }
 
     .posts {
       margin: 24px auto;
     }
+  }
 
-    .posts_buttons_bottom {
-      .btn_createPost {
-        border-radius: $posts-btn-border-radius;
-        font-size: $posts-btn-font-size;
-        font-weight: $posts-btn-font-weight;
-        padding: $posts-btn-pd;
-        text-transform: capitalize;
-        background-image: $gradient-btn-blue;
-        border: none;
-        box-shadow: $btn-shadow-filled;
-      }
-    }
+  .btn_createPost {
+    background-image: $header-btn-createPost-bg-gradient;
   }
 }

@@ -1,0 +1,22 @@
+@import '../../../styles/settings.scss';
+
+.transparent {
+  text-transform: $btn-text-transform;
+  margin: $btn-margin;
+  padding: $btn-pd;
+  border-radius: $btn-border-radius;
+  font-size: $btn-font-size;
+  font-weight: $btn-font-weight;
+  box-shadow: $btn-shadow-transparent;
+  border: 1px solid $btn-border-color;
+}
+
+.filled {
+  text-transform: $btn-text-transform;
+  margin: $btn-margin;
+  padding: $btn-pd;
+  border-radius: $btn-border-radius;
+  font-size: $btn-font-size;
+  font-weight: $btn-font-weight;
+  box-shadow: $btn-shadow-filled;
+}

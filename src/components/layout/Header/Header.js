@@ -8,11 +8,11 @@ import { connect } from 'react-redux';
 import { getUserStatus, getUserNickname, setUserStatus } from '../../../redux/userRedux';
 
 import styles from './Header.module.scss';
+import { Button } from '../../common/Button/Button';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -39,21 +39,24 @@ const Component = ({ className, userStatus, userNickname, setUserStatus, ...prop
         className={styles.top_buttons}
       >
         <Button
-          className={styles.btn_LoggedIn}
+          className={styles.btn_loggedIn}
+          variant="transparent"
           value="is loggedIn"
           onClick={() => setUserStatus('is loggedIn')}
         >
           Logged In
         </Button>
         <Button
-          className={styles.btn_LoggedOut}
+          className={styles.btn_loggedOut}
+          variant="transparent"
           value="is loggedOut"
           onClick={() => setUserStatus('is loggedOut')}
         >
           Logged Out
         </Button>
         <Button
-          className={styles.btn_Admin}
+          className={styles.btn_admin}
+          variant="transparent"
           value="is admin"
           onClick={() => setUserStatus('is admin')}
         >
@@ -74,16 +77,17 @@ const Component = ({ className, userStatus, userNickname, setUserStatus, ...prop
           <Typography
             className={styles.logo}
             variant="h6"
-            component={Link}
-            to={'/'}
           >
-            Bulletin Board
+            <Link to={'/'}>
+              Bulletin Board
+            </Link>
           </Typography>
 
           {userStatus === 'is loggedOut' ? (
             <div className={styles.right_buttons}>
               <Button
                 className={styles.btn_login}
+                variant="filled"
                 color="inherit"
                 onClick={() => setUserStatus('is loggedIn')}
               >Log In</Button>
@@ -92,12 +96,14 @@ const Component = ({ className, userStatus, userNickname, setUserStatus, ...prop
             <div className={styles.right_buttons}>
               <Button
                 className={styles.btn_yourPosts}
+                variant="filled"
                 color="inherit"
                 component={Link}
                 to={`/post/${userNickname}/posts`}
               >Your Posts</Button>
               <Button
                 className={styles.btn_login}
+                variant="filled"
                 color="inherit"
                 onClick={() => setUserStatus('is loggedOut')}
               >Log Out</Button>

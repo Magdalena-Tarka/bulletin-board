@@ -8,11 +8,11 @@ import clsx from 'clsx';
 //import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux';
 
 import styles from './NotFound.module.scss';
+import { Button } from '../../common/Button/Button';
 
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const Component = ({ className }) => (
@@ -58,6 +58,7 @@ const Component = ({ className }) => (
         </Typography>
 
         <Button className={styles.btn_notFound}
+          variant="filled"
           component={Link}
           to={'/'}
         >

@@ -11,10 +11,10 @@ import { getUserStatus/*, reduxActionCreator*/ } from '../../../redux/userRedux'
 
 import styles from './PostAdd.module.scss';
 import { NotFound } from '../NotFound/NotFound';
+import { Button } from '../../common/Button/Button';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
@@ -217,8 +217,8 @@ const Component = ({ className, userStatus, addPost }) => {
               </form>
             </CardContent>
 
-            <Button
-              className={styles.btn_addPost}
+            <Button className={styles.btn_addPost}
+              variant="filled"
               type="submit"
               onClick={submitForm}
             >
