@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 
-//import { connect } from 'react-redux';
-//import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux';
+import { connect } from 'react-redux';
+import { setUserStatus } from '../../../redux/userRedux';
 
 import styles from './Hero.module.scss';
 
@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-const Component = ({ className, children }) => (
+const Component = ({ className, setUserStatus }) => (
   <div className={clsx(className, styles.root)}>
     <Grid
       item xs={12} sm={6}
@@ -34,7 +34,13 @@ const Component = ({ className, children }) => (
         unde suscipit, neque consectetur elit doloribus, cupiditate numquam
         dignissimos laborum fugiat deleniti?
       </Typography>
-      <Button className={styles.btn_login_hero} color="inherit">Log In</Button>
+
+      <Button className={styles.btn_login_hero}
+        color="inherit"
+        onClick={() => setUserStatus('is loggedIn')}
+      >
+        Log In
+      </Button>
     </Grid>
   </div>
 );
@@ -42,22 +48,22 @@ const Component = ({ className, children }) => (
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  setUserStatus: PropTypes.func,
 };
 
 
-/*const mapStateToProps = state => ({
-  someProp: reduxSelector(state),
+const mapStateToProps = state => ({
+  setUserStatus: setUserStatus(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  someAction: arg => dispatch(reduxActionCreator(arg)),
+  setUserStatus: userStatus => dispatch(setUserStatus(userStatus)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-*/
 
 export {
-  Component as Hero,
-  //Container as Hero,
+  //Component as Hero,
+  Container as Hero,
   Component as HeroComponent,
 };

@@ -80,22 +80,29 @@ const Component = ({ className, userStatus, userNickname, setUserStatus, ...prop
             Bulletin Board
           </Typography>
 
-          <div className={styles.right_buttons}>
+          {userStatus === 'is loggedOut' ? (
+            <div className={styles.right_buttons}>
+              <Button
+                className={styles.btn_login}
+                color="inherit"
+                onClick={() => setUserStatus('is loggedIn')}
+              >Log In</Button>
+            </div>) : (
 
-
-            {userStatus === 'is loggedOut' ? '' :
-              <Button className={styles.btn_yourPosts}
+            <div className={styles.right_buttons}>
+              <Button
+                className={styles.btn_yourPosts}
                 color="inherit"
                 component={Link}
                 to={`/post/${userNickname}/posts`}
               >Your Posts</Button>
-            }
-
-
-            <Button className={styles.btn_login} color="inherit">
-              {userStatus === 'is loggedOut' ? 'Log In' : 'Log Out'}
-            </Button>
-          </div>
+              <Button
+                className={styles.btn_login}
+                color="inherit"
+                onClick={() => setUserStatus('is loggedOut')}
+              >Log Out</Button>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
 

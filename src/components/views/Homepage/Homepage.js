@@ -39,7 +39,7 @@ const Component = ({ posts, activePosts, userStatus, userEmail, ...props }) => {
           alignItems="center"
         >
           <Grid container justifyContent="center">
-            <Typography variant="h6">
+            <Typography className={styles.posts_title} variant="h6">
               Posts List
             </Typography>
           </Grid>
@@ -82,7 +82,7 @@ const Component = ({ posts, activePosts, userStatus, userEmail, ...props }) => {
                 ))
               )
             ) : (
-              postsByEmail.length && userStatus === 'is loggedIn' ? sortByDate(postsByEmail).map(post => (
+              postsByEmail.length && userStatus !== 'is loggedOut' ? sortByDate(postsByEmail).map(post => (
                 <Grid key={post.id} item xs={12} sm={4} md={3}>
                   <PostSummary {...post}/>
                 </Grid>
