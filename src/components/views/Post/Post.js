@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll } from '../../../redux/postsRedux';
+import { getAll, getByEmail } from '../../../redux/postsRedux';
 import { getUserStatus, getUserEmail } from '../../../redux/userRedux';
 
 import styles from './Post.module.scss';
@@ -20,9 +20,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIcon from '@material-ui/icons/Phone';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
-const Component = ({ className, userStatus, userEmail, posts, ...props }) => {
-
-  const postAuthorEmail = posts.filter(post => post.id === props.match.params.id && post.email)[0].email;
+const Component = ({ className, userStatus, userEmail, posts, postByEmail, ...props }) => {
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -121,7 +119,7 @@ const Component = ({ className, userStatus, userEmail, posts, ...props }) => {
               </Grid>
             </CardContent>
 
-            {(userStatus === 'is loggedIn' && userEmail === postAuthorEmail) || userStatus === 'is admin' ? (
+            {(userStatus === 'is loggedIn' && userEmail === postByEmail.email) || userStatus === 'is admin' ? (
               <Button
                 key={post.id}
                 className={styles.btn_editPost}
@@ -142,14 +140,16 @@ Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   posts: PropTypes.array,
+  postByEmail: PropTypes.object,
   userStatus: PropTypes.string,
   userEmail: PropTypes.string,
   match: PropTypes.object,
 };
 
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, {...props}) => ({
   posts: getAll(state),
+  postByEmail: getByEmail(state, props.match.params.id),
   userStatus: getUserStatus(state),
   userEmail: getUserEmail(state),
 });

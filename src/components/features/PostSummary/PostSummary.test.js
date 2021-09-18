@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { PostSummaryComponent } from './__pascalCase_name__';
+import { PostSummaryComponent } from './PostSummary';
 
 describe('Component PostSummary', () => {
   it('should render without crashing', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ButtonComponent } from './__pascalCase_name__';
+import { ButtonComponent } from './Button';
 
 describe('Component Button', () => {
   it('should render without crashing', () => {

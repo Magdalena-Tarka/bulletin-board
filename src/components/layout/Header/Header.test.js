@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { HeaderComponent } from './__pascalCase_name__';
+import { HeaderComponent } from './Header';
 
 describe('Component Header', () => {
   it('should render without crashing', () => {

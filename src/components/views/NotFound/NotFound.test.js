@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { NotFoundComponent } from './__pascalCase_name__';
+import { NotFoundComponent } from './NotFound';
 
 describe('Component NotFound', () => {
   it('should render without crashing', () => {

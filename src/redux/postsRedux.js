@@ -2,7 +2,7 @@
 export const getAll = ({posts}) => posts.data;
 export const getActive = ({posts}) => posts.data.filter(item => item.status === 'active');
 export const getToEdit = ({posts}, id) => posts.data.filter(item => item.id === id);
-//export const getByEmail = ({posts}, userEmail) => posts.data.filter(item => item.email === userEmail);
+export const getByEmail = ({posts}, id) => posts.data.filter(item => item.id === id && item.email)[0];
 
 /* action name creator */
 const reducerName = 'posts';
