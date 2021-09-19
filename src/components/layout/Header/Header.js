@@ -99,7 +99,7 @@ const Component = ({ className, userStatus, userNickname, setUserStatus, ...prop
                 variant="filled"
                 color="inherit"
                 component={Link}
-                to={`/post/${userNickname}/posts`}
+                to={`/user/${userNickname}/posts`}
               >Your Posts</Button>
               <Button
                 className={styles.btn_login}

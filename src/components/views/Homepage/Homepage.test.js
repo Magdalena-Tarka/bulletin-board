@@ -4,7 +4,7 @@ import { HomepageComponent } from './Homepage';
 
 describe('Component Homepage', () => {
   it('should render without crashing', () => {
-    const component = shallow(<HomepageComponent posts={[]} activePosts={[]} match={{params: {id: 1}, isExact: true, path: '', url: ''}} />);
+    const component = shallow(<HomepageComponent activePosts={[]} />);
     expect(component).toBeTruthy();
   });
 });

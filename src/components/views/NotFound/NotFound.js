@@ -20,6 +20,7 @@ const Component = ({ className }) => (
   <div className={clsx(className, styles.root)}>
     <Container className={styles.wrapper} maxWidth="sm">
       <Grid className={styles.left}
+        container
         item xs={12} sm={6}
         justifyContent="center"
         alignItems="center"
@@ -35,6 +36,7 @@ const Component = ({ className }) => (
       </Grid>
 
       <Grid className={styles.right}
+        container
         item xs={12} sm={6}
         justifyContent="center"
         alignItems="center"
