@@ -49,15 +49,12 @@ const Component = ({ className, userStatus, editPost, editedPost, ...props }) =>
   const getCurrentDate = () => {
     const currentDate = new Date();
     const [day, month, year] = [currentDate.getUTCDate(), currentDate.getUTCMonth()+1, currentDate.getUTCFullYear()];
-    let newDate = day + '/' + month + '/' + year;
+    let newDate = month + '/' + day + '/' + year;
     return newDate;
   };
 
   const submitForm = (event) => {
     event.preventDefault();
-
-    console.log('updatedPost:', updatedPost);
-    console.log('updatedPost._id:', updatedPost._id);
 
     if(!updatedPost.title || !updatedPost.content || !updatedPost.price || !updatedPost.status || !updatedPost.email) {
       alert('You can\'t leave required fields empty!');

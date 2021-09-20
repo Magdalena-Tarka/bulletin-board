@@ -62,7 +62,6 @@ export const fetchById = (id) => {
 
 //in progress
 export const addPostInAPI = newPost => {
-  console.log('newPost:', newPost);
   return (dispatch, getState) => {
     Axios
       .post('http://localhost:8000/api/post/add', newPost)

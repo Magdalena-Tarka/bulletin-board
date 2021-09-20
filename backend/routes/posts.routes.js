@@ -6,8 +6,8 @@ const Post = require('../models/post.model');
 router.get('/posts', async (req, res) => {
   try {
     const result = await Post
-      .find()
-      //.find({ status: 'active' })
+      //.find()
+      .find({ status: 'active' })
       .select('title price image publicationDate')
       .sort({ publicationDate: -1 });
 
@@ -36,7 +36,6 @@ router.post('/post/add', async (req, res) => {
   try {
     const { title, content, price, image, status, email, phone, location, publicationDate, updateDate } = req.body;
     const newPost = new Post({ title, content, price, image, status, email, phone, location, publicationDate, updateDate });
-    console.log('newPost1:', newPost);
     await newPost.save();
     res.json({ message: 'OK' });
   }

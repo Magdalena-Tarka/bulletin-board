@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 
 import clsx from 'clsx';
-//import { v4 as uuidv4 } from 'uuid';
 
 import { connect } from 'react-redux';
 import { addPostInAPI } from '../../../redux/postsRedux';
-import { getUserStatus/*, reduxActionCreator*/ } from '../../../redux/userRedux';
+import { getUserStatus } from '../../../redux/userRedux';
 
 import styles from './PostAdd.module.scss';
 import { NotFound } from '../NotFound/NotFound';
@@ -38,7 +37,7 @@ const Component = ({ className, userStatus, addPost }) => {
   const getCurrentDate = () => {
     const currentDate = new Date();
     const [day, month, year] = [currentDate.getUTCDate(), currentDate.getUTCMonth()+1, currentDate.getUTCFullYear()];
-    let newDate = day + '/' + month + '/' + year;
+    let newDate = month + '/' + day + '/' + year;
     return newDate;
   };
 
@@ -59,7 +58,6 @@ const Component = ({ className, userStatus, addPost }) => {
         ...newPost,
         publicationDate: getCurrentDate(),
         updateDate: getCurrentDate(),
-        //id: uuidv4(),
       });
       setNewPost('');
       history.push('/');
@@ -238,13 +236,11 @@ Component.propTypes = {
   addPost: PropTypes.func,
 };
 
-
 const mapStateToProps = state => ({
   userStatus: getUserStatus(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  //addPost: (newPost) => dispatch(addPost(newPost)),
   addPost: (newPost) => dispatch(addPostInAPI(newPost)),
 });
 

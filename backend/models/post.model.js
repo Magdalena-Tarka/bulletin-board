@@ -9,8 +9,8 @@ const postSchema = new mongoose.Schema({
   email: { type: String, required: true },
   phone: { type: String },
   location: { type: String },
-  publicationDate: { type: Date, required: true },
-  updateDate: { type: Date, required: true },
+  publicationDate: { type: String },
+  updateDate: { type: String },
 });
 
 module.exports = mongoose.model('Post', postSchema);
