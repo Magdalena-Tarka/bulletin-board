@@ -1,8 +1,12 @@
+import Axios from 'axios';
+
 /* selectors */
 export const getAll = ({posts}) => posts.data;
-export const getActive = ({posts}) => posts.data.filter(item => item.status === 'active');
-export const getToEdit = ({posts}, id) => posts.data.filter(item => item.id === id);
-export const getByEmail = ({posts}, id) => posts.data.filter(item => item.id === id && item.email)[0];
+export const getOne = ({posts}) => posts.data;
+
+//export const getActive = ({posts}) => posts.data.filter(item => item.status === 'active');
+//export const getToEdit = ({posts}, id) => posts.data.filter(item => item._id === id);
+//export const getByEmail = ({posts}, id) => posts.data.filter(item => item._id === id && item.email)[0];
 
 /* action name creator */
 const reducerName = 'posts';
@@ -23,6 +27,68 @@ export const addPost = (payload) => ({ payload, type: ADD_POST });
 export const editPost = (payload) => ({ payload, type: EDIT_POST });
 
 /* thunk creators */
+export const fetchActive = () => {
+  return (dispatch, getState) => {
+
+    if(!getState().posts.data.length && getState().posts.loading.active === false) {
+      dispatch(fetchStarted());
+
+      Axios
+        .get('http://localhost:8000/api/posts')
+        .then(res => {
+          dispatch(fetchSuccess(res.data));
+        })
+        .catch(err => {
+          dispatch(fetchError(err.message || true));
+        });
+    }
+  };
+};
+
+export const fetchById = (id) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get(`http://localhost:8000/api/post/${id}`)
+      .then(res => {
+        dispatch(fetchSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
+//in progress
+export const addPostInAPI = newPost => {
+  console.log('newPost:', newPost);
+  return (dispatch, getState) => {
+    Axios
+      .post('http://localhost:8000/api/post/add', newPost)
+      .then(res => {
+        dispatch(addPost(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
+//in progress
+export const editPostInAPI = (id, editedPost) => {
+  return (dispatch, getState) => {
+    console.log('editedPost:', editedPost);
+    Axios
+      .put(`http://localhost:8000/api/post/${id}/edit`, editedPost)
+      .then(res => {
+        dispatch(editPost(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
 
 /* reducer */
 export const reducer = (statePart = [], action = {}) => {

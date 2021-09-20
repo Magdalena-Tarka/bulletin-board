@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 
 import clsx from 'clsx';
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 
 import { connect } from 'react-redux';
-import { addPost/*, reduxActionCreator*/ } from '../../../redux/postsRedux';
+import { addPostInAPI } from '../../../redux/postsRedux';
 import { getUserStatus/*, reduxActionCreator*/ } from '../../../redux/userRedux';
 
 import styles from './PostAdd.module.scss';
@@ -59,7 +59,7 @@ const Component = ({ className, userStatus, addPost }) => {
         ...newPost,
         publicationDate: getCurrentDate(),
         updateDate: getCurrentDate(),
-        id: uuidv4(),
+        //id: uuidv4(),
       });
       setNewPost('');
       history.push('/');
@@ -244,7 +244,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addPost: (newPost) => dispatch(addPost(newPost)),
+  //addPost: (newPost) => dispatch(addPost(newPost)),
+  addPost: (newPost) => dispatch(addPostInAPI(newPost)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

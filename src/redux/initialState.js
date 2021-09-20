@@ -1,7 +1,7 @@
 export const initialState = {
   posts: {
     data: [
-      {
+      /*{
         id: '1',
         title: 'Lorem ipsum dolor',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -130,7 +130,7 @@ export const initialState = {
         phone: '456-789-012',
         location: 'Lagos',
         status: 'active',
-      },
+      },*/
     ],
     loading: {
       active: false,

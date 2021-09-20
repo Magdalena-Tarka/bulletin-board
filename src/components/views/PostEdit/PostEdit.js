@@ -5,7 +5,7 @@ import {useHistory} from 'react-router-dom';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getToEdit, editPost} from '../../../redux/postsRedux';
+import { getOne, editPostInAPI} from '../../../redux/postsRedux';
 import { getUserStatus } from '../../../redux/userRedux';
 
 import styles from '../PostEdit/PostEdit.module.scss';
@@ -26,19 +26,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 
-const Component = ({ className, userStatus, editPost, editedPost }) => {
+const Component = ({ className, userStatus, editPost, editedPost, ...props }) => {
 
   const [updatedPost, setUpdatedPost] = useState({
-    id: editedPost[0].id,
-    title: editedPost[0].title,
-    content: editedPost[0].content,
-    price: editedPost[0].price,
-    status: editedPost[0].status,
-    image: editedPost[0].image,
-    email: editedPost[0].email,
-    phone: editedPost[0].phone,
-    location: editedPost[0].location,
-    publicationDate: editedPost[0].publicationDate,
+    _id: editedPost._id,
+    title: editedPost.title,
+    content: editedPost.content,
+    price: editedPost.price,
+    status: editedPost.status,
+    image: editedPost.image,
+    email: editedPost.email,
+    phone: editedPost.phone,
+    location: editedPost.location,
+    publicationDate: editedPost.publicationDate,
   });
   let history = useHistory();
 
@@ -56,6 +56,9 @@ const Component = ({ className, userStatus, editPost, editedPost }) => {
   const submitForm = (event) => {
     event.preventDefault();
 
+    console.log('updatedPost:', updatedPost);
+    console.log('updatedPost._id:', updatedPost._id);
+
     if(!updatedPost.title || !updatedPost.content || !updatedPost.price || !updatedPost.status || !updatedPost.email) {
       alert('You can\'t leave required fields empty!');
     } else if(updatedPost.title.length >= 30) {
@@ -66,12 +69,12 @@ const Component = ({ className, userStatus, editPost, editedPost }) => {
       alert('Price can\'t be higher than 99999$');
     } else {
 
-      editPost({
+      editPost( updatedPost._id, {
         ...updatedPost,
         updateDate: getCurrentDate(),
       });
       setUpdatedPost('');
-      history.push(`/post/${updatedPost.id}`);
+      history.push(`/post/${updatedPost._id}`);
     }
   };
 
@@ -245,16 +248,18 @@ Component.propTypes = {
   userStatus: PropTypes.string,
   editPost: PropTypes.func,
   editedPost: PropTypes.array,
+  match: PropTypes.object,
 };
 
 
-const mapStateToProps = (state, {...props}) => ({
+const mapStateToProps = (state) => ({
   userStatus: getUserStatus(state),
-  editedPost: getToEdit(state, props.match.params.id),
+  editedPost: getOne(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  editPost: (updatedPost) => dispatch(editPost(updatedPost)),
+  //editPost: (updatedPost) => dispatch(editPost(updatedPost)),
+  editPost: (id, updatedPost) => dispatch(editPostInAPI(id, updatedPost)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

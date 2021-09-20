@@ -20,7 +20,7 @@ const Component = ({ className, children, ...post }) => (
     <Card
       className={styles.post_card}
       component={Link}
-      to={`/post/${post.id}`}
+      to={`/post/${post._id}`}
     >
       <CardContent>
         <CardMedia

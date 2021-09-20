@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 //import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getActive } from '../../../redux/postsRedux';
+import { getAll, fetchActive } from '../../../redux/postsRedux';
 import { getUserStatus } from '../../../redux/userRedux';
 
 import styles from './Homepage.module.scss';
@@ -21,7 +21,11 @@ const sortByDate = arr => {
   return arr;
 };
 
-const Component = ({ activePosts, userStatus }) => {
+const Component = ({ activePosts, userStatus, fetchActivePosts }) => {
+
+  useEffect(() => {
+    fetchActivePosts();
+  }, [fetchActivePosts]);
 
   return (
     <div className={styles.root}>
@@ -61,7 +65,7 @@ const Component = ({ activePosts, userStatus }) => {
           direction="row"
         >
           {activePosts.length && sortByDate(activePosts).map(post => (
-            <Grid key={post.id} item xs={12} sm={4} md={3}>
+            <Grid key={post._id} item xs={12} sm={4} md={3}>
               <PostSummary {...post}/>
             </Grid>
           ))}
@@ -87,18 +91,19 @@ const Component = ({ activePosts, userStatus }) => {
 Component.propTypes = {
   activePosts: PropTypes.array,
   userStatus: PropTypes.string,
+  fetchActivePosts: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
-  activePosts: getActive(state),
+  activePosts: getAll(state),
   userStatus: getUserStatus(state),
 });
 
-/*const mapDispatchToProps = dispatch => ({
-  someAction: arg => dispatch(reduxActionCreator(arg)),
-});*/
+const mapDispatchToProps = dispatch => ({
+  fetchActivePosts: () => dispatch(fetchActive()),
+});
 
-const Container = connect(mapStateToProps/*, mapDispatchToProps*/)(Component);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
   //Component as Homepage,
