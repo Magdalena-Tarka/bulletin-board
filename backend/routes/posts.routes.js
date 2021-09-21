@@ -19,6 +19,25 @@ router.get('/posts', async (req, res) => {
   }
 });
 
+router.get('/user/:nickname/posts', async (req, res) => {
+  try {
+    const result = await Post
+      .find()
+      //.find({ status: 'active' })
+      .select('title price image email publicationDate')
+      .sort({ publicationDate: -1 });
+
+    console.log('result:', result);
+
+    if(!result) res.status(404).json({ post: 'Not found...' });
+    else res.json(result);
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 router.get('/post/:id', async (req, res) => {
   try {
     const result = await Post

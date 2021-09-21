@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 //import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll } from '../../../redux/postsRedux';
+import { getAll, fetchAll } from '../../../redux/postsRedux';
 import { getUserStatus, getUserEmail } from '../../../redux/userRedux';
 
 import styles from './UserPosts.module.scss';
@@ -21,7 +21,11 @@ const sortByDate = arr => {
   return arr;
 };
 
-const Component = ({ posts, userStatus, userEmail }) => {
+const Component = ({ posts, userStatus, userEmail, fetchAllPosts, ...props }) => {
+
+  useEffect(() => {
+    fetchAllPosts();
+  }, [fetchAllPosts]);
 
   const postsByEmail = posts.filter(post => post.email === userEmail);
 
@@ -104,6 +108,7 @@ Component.propTypes = {
   posts: PropTypes.array,
   userStatus: PropTypes.string,
   userEmail: PropTypes.string,
+  fetchAllPosts: PropTypes.func,
 };
 
 
@@ -113,11 +118,11 @@ const mapStateToProps = state => ({
   userEmail: getUserEmail(state),
 });
 
-/*const mapDispatchToProps = dispatch => ({
-  someAction: arg => dispatch(reduxActionCreator(arg)),
-});*/
+const mapDispatchToProps = dispatch => ({
+  fetchAllPosts: () => dispatch(fetchAll()),
+});
 
-const Container = connect(mapStateToProps/*, mapDispatchToProps*/)(Component);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
   //Component as UserPosts,

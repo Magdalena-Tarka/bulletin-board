@@ -56,6 +56,23 @@ export const fetchById = (id) => {
   };
 };
 
+export const fetchAll = () => {
+  return (dispatch, getState) => {
+    if(!getState().posts.data.length && getState().posts.loading.active === false) {
+      dispatch(fetchStarted());
+
+      Axios
+        .get('http://localhost:8000/api/user/:nickname/posts')
+        .then(res => {
+          dispatch(fetchSuccess(res.data));
+        })
+        .catch(err => {
+          dispatch(fetchError(err.message || true));
+        });
+    }
+  };
+};
+
 export const addPostInAPI = newPost => {
   return (dispatch, getState) => {
     Axios
