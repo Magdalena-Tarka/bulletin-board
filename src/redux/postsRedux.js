@@ -4,10 +4,6 @@ import Axios from 'axios';
 export const getAll = ({posts}) => posts.data;
 export const getOne = ({posts}) => posts.data;
 
-//export const getActive = ({posts}) => posts.data.filter(item => item.status === 'active');
-//export const getToEdit = ({posts}, id) => posts.data.filter(item => item._id === id);
-//export const getByEmail = ({posts}, id) => posts.data.filter(item => item._id === id && item.email)[0];
-
 /* action name creator */
 const reducerName = 'posts';
 const createActionName = name => `app/${reducerName}/${name}`;
@@ -60,7 +56,6 @@ export const fetchById = (id) => {
   };
 };
 
-//in progress
 export const addPostInAPI = newPost => {
   return (dispatch, getState) => {
     Axios
@@ -74,7 +69,6 @@ export const addPostInAPI = newPost => {
   };
 };
 
-//in progress
 export const editPostInAPI = (id, editedPost) => {
   return (dispatch, getState) => {
     console.log('editedPost:', editedPost);
@@ -82,6 +76,20 @@ export const editPostInAPI = (id, editedPost) => {
       .put(`http://localhost:8000/api/post/${id}/edit`, editedPost)
       .then(res => {
         dispatch(editPost(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
+export const deletePostInAPI = (id) => {
+  return (dispatch, getState) => {
+
+    Axios
+      .delete(`http://localhost:8000/api/post/${id}/delete`)
+      .then(res => {
+        dispatch(fetchSuccess(res.data));
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));

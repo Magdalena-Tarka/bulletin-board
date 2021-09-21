@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getOne, fetchById } from '../../../redux/postsRedux';
+import { getOne, fetchById, deletePostInAPI } from '../../../redux/postsRedux';
 import { getUserStatus, getUserEmail } from '../../../redux/userRedux';
 
 import styles from './Post.module.scss';
@@ -20,11 +21,19 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIcon from '@material-ui/icons/Phone';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
-const Component = ({ className, userStatus, userEmail, post, fetchPostById, ...props }) => {
+const Component = ({ className, userStatus, userEmail, post, fetchPostById, deletePostById, ...props }) => {
 
   useEffect(() => {
     fetchPostById(props.match.params.id);
   }, [props.match.params.id, fetchPostById]);
+
+  let history = useHistory();
+
+  const deletePost = (event) => {
+    event.preventDefault();
+    deletePostById(props.match.params.id);
+    history.push('/');
+  };
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -112,6 +121,13 @@ const Component = ({ className, userStatus, userEmail, post, fetchPostById, ...p
             </Grid>
           </CardContent>
 
+          {userStatus === 'is admin' ? (
+            <Button
+              className={styles.btn_deletePost}
+              variant="filled"
+              onClick={deletePost}
+            >Delete Post</Button>
+          ) : null }
           {(userStatus === 'is loggedIn' && userEmail === post.email) || userStatus === 'is admin' ? (
             <Button
               className={styles.btn_editPost}
@@ -134,6 +150,7 @@ Component.propTypes = {
   userEmail: PropTypes.string,
   match: PropTypes.object,
   fetchPostById: PropTypes.func,
+  deletePostById: PropTypes.func,
 };
 
 
@@ -145,6 +162,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchPostById: id => dispatch(fetchById(id)),
+  deletePostById: id => dispatch(deletePostInAPI(id)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

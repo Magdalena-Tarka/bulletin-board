@@ -100,10 +100,16 @@
         }
       }
 
-      .btn_editPost {
-        background-image: $post-btn-bg-image;
+      .btn_deletePost {
+        background-image: $post-btn-del-bg-img;
         color: $btn-filled-text-color-dark;
-        margin: 12px 0 32px 0;
+        margin: 12px 4px 32px 4px;
+      }
+
+      .btn_editPost {
+        background-image: $post-btn-edit-bg-img;
+        color: $btn-filled-text-color-dark;
+        margin: 12px 4px 32px 4px;
       }
     }
   }

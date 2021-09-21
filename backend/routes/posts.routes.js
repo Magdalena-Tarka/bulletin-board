@@ -54,7 +54,21 @@ router.put('/post/:id/edit', async (req, res) => {
     } else res.status(404).json({ message: 'Not found...' });
   }
   catch(err) {
-    res.status(500).json(`Hello Im error from api: ${err}`);
+    res.status(500).json(err);
+  }
+});
+
+router.delete('/post/:id/delete', async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if(post) {
+      await Post.deleteOne({ _id: req.params.id });
+      res.json({ message: 'OK' });
+    } else res.status(404).json({ message: 'Not found...' });
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json(err);
   }
 });
 
