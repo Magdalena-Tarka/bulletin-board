@@ -3,7 +3,8 @@ import { API_URL } from '../config';
 
 /* selectors */
 export const getAll = ({posts}) => posts.data;
-export const getOne = ({posts}) => posts.data;
+export const getOne = ({posts}) => posts.onePost;
+export const getActive = ({posts}) => posts.data.filter(post => post.status === 'active');
 
 /* action name creator */
 const reducerName = 'posts';
@@ -13,6 +14,7 @@ const createActionName = name => `app/${reducerName}/${name}`;
 const FETCH_START = createActionName('FETCH_START');
 const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
+const FETCH_ONE_POST = createActionName('FETCH_ONE_POST');
 const ADD_POST = createActionName('ADD_POST');
 const EDIT_POST = createActionName('EDIT_POST');
 
@@ -20,11 +22,12 @@ const EDIT_POST = createActionName('EDIT_POST');
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
+export const fetchOnePost = payload => ({ payload, type: FETCH_ONE_POST });
 export const addPost = (payload) => ({ payload, type: ADD_POST });
 export const editPost = (payload) => ({ payload, type: EDIT_POST });
 
 /* thunk creators */
-export const fetchActive = () => {
+export const fetchAll = () => {
   return (dispatch, getState) => {
 
     if(!getState().posts.data.length && getState().posts.loading.active === false) {
@@ -42,37 +45,18 @@ export const fetchActive = () => {
   };
 };
 
-export const fetchById = (id) => {
+export const fetchOnePostInAPI = (id) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
 
     Axios
       .get(`${API_URL}/post/${id}`)
       .then(res => {
-        dispatch(fetchSuccess(res.data));
+        dispatch(fetchOnePost(res.data));
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));
       });
-  };
-};
-
-export const fetchAll = () => {
-  return (dispatch, getState) => {
-    if(!getState().posts.data.length && getState().posts.loading.active === false) {
-      dispatch(fetchStarted());
-
-      const nickname = getState().user.userNickname;
-
-      Axios
-        .get(`${API_URL}/user/${nickname}/posts`)
-        .then(res => {
-          dispatch(fetchSuccess(res.data));
-        })
-        .catch(err => {
-          dispatch(fetchError(err.message || true));
-        });
-    }
   };
 };
 
@@ -146,6 +130,16 @@ export const reducer = (statePart = [], action = {}) => {
           active: false,
           error: action.payload,
         },
+      };
+    }
+    case FETCH_ONE_POST: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        onePost: action.payload,
       };
     }
     case ADD_POST: {

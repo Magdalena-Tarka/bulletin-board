@@ -6,32 +6,15 @@ const Post = require('../models/post.model');
 router.get('/posts', async (req, res) => {
   try {
     const result = await Post
-      //.find()
-      .find({ status: 'active' })
-      .select('title price image publicationDate')
-      .sort({ publicationDate: -1 });
-
-    if(!result) res.status(404).json({ post: 'Not found...' });
-    else res.json(result);
-  }
-  catch(err) {
-    res.status(500).json(err);
-  }
-});
-
-router.get('/user/:nickname/posts', async (req, res) => {
-  try {
-    const result = await Post
       .find()
       //.find({ status: 'active' })
-      .select('title price image email publicationDate')
+      .select('title price image email status publicationDate')
       .sort({ publicationDate: -1 });
 
     if(!result) res.status(404).json({ post: 'Not found...' });
     else res.json(result);
   }
   catch(err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -45,6 +28,7 @@ router.get('/post/:id', async (req, res) => {
     else res.json(result);
   }
   catch(err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });

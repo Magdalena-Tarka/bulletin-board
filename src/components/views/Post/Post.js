@@ -6,7 +6,7 @@ import {useHistory} from 'react-router-dom';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getOne, fetchById, deletePostInAPI } from '../../../redux/postsRedux';
+import { getOne, fetchOnePostInAPI, deletePostInAPI } from '../../../redux/postsRedux';
 import { getUserStatus, getUserEmail } from '../../../redux/userRedux';
 
 import styles from './Post.module.scss';
@@ -28,6 +28,8 @@ const Component = ({ className, userStatus, userEmail, post, fetchPostById, dele
   }, [props.match.params.id, fetchPostById]);
 
   let history = useHistory();
+
+  console.log('post:', post);
 
   const deletePost = (event) => {
     event.preventDefault();
@@ -161,7 +163,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPostById: id => dispatch(fetchById(id)),
+  fetchPostById: id => dispatch(fetchOnePostInAPI(id)),
   deletePostById: id => dispatch(deletePostInAPI(id)),
 });
 

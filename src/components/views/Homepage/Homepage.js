@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 //import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll, fetchActive } from '../../../redux/postsRedux';
+import { getActive, fetchAll } from '../../../redux/postsRedux';
 import { getUserStatus } from '../../../redux/userRedux';
 
 import styles from './Homepage.module.scss';
@@ -21,11 +21,13 @@ const sortByDate = arr => {
   return arr;
 };
 
-const Component = ({ activePosts, userStatus, fetchActivePosts }) => {
+const Component = ({ activePosts, userStatus, fetchAllPosts }) => {
 
   useEffect(() => {
-    fetchActivePosts();
-  }, [fetchActivePosts]);
+    fetchAllPosts();
+  }, [fetchAllPosts]);
+
+  //console.log('activePosts:', activePosts);
 
   return (
     <div className={styles.root}>
@@ -91,16 +93,16 @@ const Component = ({ activePosts, userStatus, fetchActivePosts }) => {
 Component.propTypes = {
   activePosts: PropTypes.array,
   userStatus: PropTypes.string,
-  fetchActivePosts: PropTypes.func,
+  fetchAllPosts: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
-  activePosts: getAll(state),
+  activePosts: getActive(state),
   userStatus: getUserStatus(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchActivePosts: () => dispatch(fetchActive()),
+  fetchAllPosts: () => dispatch(fetchAll()),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
