@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { API_URL } from '../config';
 
 /* selectors */
 export const getAll = ({posts}) => posts.data;
@@ -30,7 +31,7 @@ export const fetchActive = () => {
       dispatch(fetchStarted());
 
       Axios
-        .get('http://localhost:8000/api/posts')
+        .get(`${API_URL}/posts`)
         .then(res => {
           dispatch(fetchSuccess(res.data));
         })
@@ -46,7 +47,7 @@ export const fetchById = (id) => {
     dispatch(fetchStarted());
 
     Axios
-      .get(`http://localhost:8000/api/post/${id}`)
+      .get(`${API_URL}/post/${id}`)
       .then(res => {
         dispatch(fetchSuccess(res.data));
       })
@@ -61,8 +62,10 @@ export const fetchAll = () => {
     if(!getState().posts.data.length && getState().posts.loading.active === false) {
       dispatch(fetchStarted());
 
+      const nickname = getState().user.userNickname;
+
       Axios
-        .get('http://localhost:8000/api/user/:nickname/posts')
+        .get(`${API_URL}/user/${nickname}/posts`)
         .then(res => {
           dispatch(fetchSuccess(res.data));
         })
@@ -76,7 +79,7 @@ export const fetchAll = () => {
 export const addPostInAPI = newPost => {
   return (dispatch, getState) => {
     Axios
-      .post('http://localhost:8000/api/post/add', newPost)
+      .post(`${API_URL}/post/add`, newPost)
       .then(res => {
         dispatch(addPost(res.data));
       })
@@ -90,7 +93,7 @@ export const editPostInAPI = (id, editedPost) => {
   return (dispatch, getState) => {
     console.log('editedPost:', editedPost);
     Axios
-      .put(`http://localhost:8000/api/post/${id}/edit`, editedPost)
+      .put(`${API_URL}/post/${id}/edit`, editedPost)
       .then(res => {
         dispatch(editPost(res.data));
       })
@@ -104,7 +107,7 @@ export const deletePostInAPI = (id) => {
   return (dispatch, getState) => {
 
     Axios
-      .delete(`http://localhost:8000/api/post/${id}/delete`)
+      .delete(`${API_URL}/post/${id}/delete`)
       .then(res => {
         dispatch(fetchSuccess(res.data));
       })

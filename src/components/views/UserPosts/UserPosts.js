@@ -68,13 +68,13 @@ const Component = ({ posts, userStatus, userEmail, fetchAllPosts, ...props }) =>
           >
             {userStatus === 'is admin' ? (
               posts.length && sortByDate(posts).map(post => (
-                <Grid key={post.id} item xs={12} sm={4} md={3}>
+                <Grid key={post._id} item xs={12} sm={4} md={3}>
                   <PostSummary {...post}/>
                 </Grid>
               ))
             ) : (
               postsByEmail.length && userStatus !== 'is loggedOut' ? sortByDate(postsByEmail).map(post => (
-                <Grid key={post.id} item xs={12} sm={4} md={3}>
+                <Grid key={post.id_} item xs={12} sm={4} md={3}>
                   <PostSummary {...post}/>
                 </Grid>
               )) : (
