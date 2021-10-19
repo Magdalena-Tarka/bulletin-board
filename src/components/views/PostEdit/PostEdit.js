@@ -244,7 +244,7 @@ Component.propTypes = {
   className: PropTypes.string,
   userStatus: PropTypes.string,
   editPost: PropTypes.func,
-  editedPost: PropTypes.array,
+  editedPost: PropTypes.object,
   match: PropTypes.object,
 };
 

@@ -29,8 +29,6 @@ const Component = ({ className, userStatus, userEmail, post, fetchPostById, dele
 
   let history = useHistory();
 
-  console.log('post:', post);
-
   const deletePost = (event) => {
     event.preventDefault();
     deletePostById(props.match.params.id);
@@ -44,101 +42,105 @@ const Component = ({ className, userStatus, userEmail, post, fetchPostById, dele
         justifyContent="center"
         alignItems="center"
       >
-        <Card className={styles.post_card}>
-          <Typography className={styles.card_title} variant="h6">Post details</Typography>
+        {!post ? (
+          <div>...Loading</div>
+        ) : (
+          <Card className={styles.post_card}>
+            <Typography className={styles.card_title} variant="h6">Post details</Typography>
 
-          <CardContent className={styles.card_content}>
-            <Grid className={styles.card_header} item xs={12}>
-              <Grid className={styles.post_image} item xs={12} sm={6}>
-                <CardMedia className={styles.image}
-                  component="img"
-                  image={post.image}
-                  title="img"
-                />
+            <CardContent className={styles.card_content}>
+              <Grid className={styles.card_header} item xs={12}>
+                <Grid className={styles.post_image} item xs={12} sm={6}>
+                  <CardMedia className={styles.image}
+                    component="img"
+                    image={post.image}
+                    title="img"
+                  />
+                </Grid>
+
+                <Grid className={styles.post_details} item xs={12} sm={6}
+                >
+                  <Typography className={clsx(styles.post, styles.title)}
+                    variant="subtitle1"
+                  >{post.title}</Typography>
+
+                  <Typography className={clsx(styles.post, styles.price)}
+                    variant="subtitle2"
+                  >
+                    <span>Price: </span>{post.price}.00$
+                  </Typography>
+
+                  <Typography className={clsx(styles.post, styles.email)}
+                    variant="subtitle2"
+                  >
+                    <MailOutlineIcon /> {post.email}
+                  </Typography>
+
+                  {!post.phone ? null : (
+                    <Typography className={clsx(styles.post, styles.phone)}
+                      variant="subtitle2"
+                    >
+                      <PhoneIcon /> {post.phone}
+                    </Typography>
+                  )}
+
+                  {!post.phone ? null : (
+                    <Typography className={clsx(styles.post, styles.location)}
+                      variant="subtitle2"
+                    >
+                      <LocationOnIcon /> {post.location}
+                    </Typography>
+                  )}
+
+                  <Typography className={clsx(styles.post, styles.publicationDate)}
+                    variant="subtitle2"
+                  >
+                    <span>Published: </span>{post.publicationDate}
+                  </Typography>
+
+                  <Typography className={clsx(styles.post, styles.status)}
+                    variant="subtitle2"
+                  >
+                    <span>Status: </span>{post.status}
+                  </Typography>
+                </Grid>
               </Grid>
 
-              <Grid className={styles.post_details} item xs={12} sm={6}
+              <Grid className={styles.card_description}
+                item xs={12}
+                diretcion="row"
               >
                 <Typography className={clsx(styles.post, styles.title)}
                   variant="subtitle1"
                 >{post.title}</Typography>
 
-                <Typography className={clsx(styles.post, styles.price)}
+                <Typography className={clsx(styles.post, styles.content)}
+                  variant="body2"
+                >{post.content}</Typography>
+
+                <Typography className={clsx(styles.post, styles.updateDate)}
                   variant="subtitle2"
-                >
-                  <span>Price: </span>{post.price}.00$
-                </Typography>
-
-                <Typography className={clsx(styles.post, styles.email)}
-                  variant="subtitle2"
-                >
-                  <MailOutlineIcon /> {post.email}
-                </Typography>
-
-                {!post.phone ? null : (
-                  <Typography className={clsx(styles.post, styles.phone)}
-                    variant="subtitle2"
-                  >
-                    <PhoneIcon /> {post.phone}
-                  </Typography>
-                )}
-
-                {!post.phone ? null : (
-                  <Typography className={clsx(styles.post, styles.location)}
-                    variant="subtitle2"
-                  >
-                    <LocationOnIcon /> {post.location}
-                  </Typography>
-                )}
-
-                <Typography className={clsx(styles.post, styles.publicationDate)}
-                  variant="subtitle2"
-                >
-                  <span>Published: </span>{post.publicationDate}
-                </Typography>
-
-                <Typography className={clsx(styles.post, styles.status)}
-                  variant="subtitle2"
-                >
-                  <span>Status: </span>{post.status}
-                </Typography>
+                >Last Modified: {post.updateDate}</Typography>
               </Grid>
-            </Grid>
+            </CardContent>
 
-            <Grid className={styles.card_description}
-              item xs={12}
-              diretcion="row"
-            >
-              <Typography className={clsx(styles.post, styles.title)}
-                variant="subtitle1"
-              >{post.title}</Typography>
-
-              <Typography className={clsx(styles.post, styles.content)}
-                variant="body2"
-              >{post.content}</Typography>
-
-              <Typography className={clsx(styles.post, styles.updateDate)}
-                variant="subtitle2"
-              >Last Modified: {post.updateDate}</Typography>
-            </Grid>
-          </CardContent>
-
-          {userStatus === 'is admin' ? (
-            <Button
-              className={styles.btn_deletePost}
-              variant="filled"
-              onClick={deletePost}
-            >Delete Post</Button>
-          ) : null }
-          {(userStatus === 'is loggedIn' && userEmail === post.email) || userStatus === 'is admin' ? (
-            <Button
-              className={styles.btn_editPost}
-              variant="filled"
-              component={Link}
-              to={`/post/${post._id}/edit`}
-            >Edit Post</Button>
-          ) : null }
-        </Card>
+            {userStatus === 'is admin' ? (
+              <Button
+                className={styles.btn_deletePost}
+                variant="filled"
+                onClick={deletePost}
+              >Delete Post</Button>
+            ) : null }
+            {(userStatus === 'is loggedIn' && userEmail === post.email) || userStatus === 'is admin' ? (
+              <Button
+                className={styles.btn_editPost}
+                variant="filled"
+                component={Link}
+                to={`/post/${post._id}/edit`}
+              >Edit Post</Button>
+            ) : null }
+          </Card>
+        )}
       </Grid>
     </div>
   );

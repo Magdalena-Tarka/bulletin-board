@@ -136,6 +136,7 @@ export const initialState = {
       active: false,
       error: false,
     },
+    onePost: {},
   },
   user: {
     userStatus: 'is loggedOut',
